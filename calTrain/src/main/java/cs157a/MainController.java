@@ -1,4 +1,4 @@
-package com.example.demo;
+package cs157a;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.demo.Station;
-import com.example.demo.StationRepo;
+import cs157a.Station;
+import cs157a.StationRepo;
 
 @Controller
 @RequestMapping(path="/demo")
@@ -36,3 +36,4 @@ public class MainController {
 	}
 
 }
+

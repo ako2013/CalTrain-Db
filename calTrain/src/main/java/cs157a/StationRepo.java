@@ -1,8 +1,9 @@
-package com.example.demo;
+package cs157a;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.example.demo.Station;
+import cs157a.Station;
 
 public interface StationRepo extends CrudRepository<Station, Long> {
 }
+
