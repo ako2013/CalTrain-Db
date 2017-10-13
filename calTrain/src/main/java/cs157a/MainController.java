@@ -7,12 +7,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
+
+
+
 import cs157a.Station;
 import cs157a.StationRepo;
 
 @Controller
 @RequestMapping(path="/demo")
 public class MainController {
+	
+	@PersistenceContext	
+	private EntityManager entityManager;
 	
 	@Autowired
 	private StationRepo repo;
@@ -30,9 +39,12 @@ public class MainController {
 		return "Saved";
 	}
 	
+	//@SuppressWarnings("unchecked")
 	@GetMapping(path="/all") //Get all stations
 	public @ResponseBody Iterable<Station> getAllStations(){
 		return repo.findAll();
+		//String hql = "FROM station";
+		//return (List<Station>)entityManager.createQuery(hql).getResultList();
 	}
 
 }
