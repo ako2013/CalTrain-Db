@@ -9,15 +9,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.List;
-
-
 
 import cs157a.Station;
 import cs157a.StationRepo;
 
 @Controller
-@RequestMapping(path="/demo")
+@RequestMapping(path="/api")
 public class MainController {
 	
 	@PersistenceContext	
@@ -26,9 +23,9 @@ public class MainController {
 	@Autowired
 	private StationRepo repo;
 	
-	@RequestMapping(path="/api")
+	@RequestMapping(path="/check")
 	public @ResponseBody String greet() {
-		return "Hello there!!";
+		return "API service running!";
 	}
 	
 	@GetMapping(path="/add") // Map ONLY Get Requests
@@ -39,7 +36,6 @@ public class MainController {
 		return "Saved";
 	}
 	
-	//@SuppressWarnings("unchecked")
 	@GetMapping(path="/all") //Get all stations
 	public @ResponseBody Iterable<Station> getAllStations(){
 		return repo.findAll();
