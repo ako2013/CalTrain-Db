@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 
@@ -21,8 +20,8 @@ import cs157a.TrainRepo;
 @RequestMapping(path="/api")
 public class MainController {
 	
-	@PersistenceContext	
-	private EntityManagerFactory entityManagerFactory;
+	//@PersistenceContext	
+	//private EntityManagerFactory entityManagerFactory;
 	
 	@Autowired
 	private StationRepo repo;
@@ -42,7 +41,7 @@ public class MainController {
 	// API Mapping 
 	
 	// 
-	@GetMapping(path="/addStation") // Map ONLY Get Requests
+	@GetMapping(path="/add_station") // Map ONLY Get Requests
 	public @ResponseBody String addNewStation (@RequestParam String name) {
 		Station n = new Station();
 		n.setName(name);
@@ -50,7 +49,7 @@ public class MainController {
 		return "Station added succcessful!";
 	}
 	
-	@GetMapping(path="/addTrain") // Map ONLY Get Requests
+	@GetMapping(path="/add_train") // Map ONLY Get Requests
 	public @ResponseBody String addNewTrain (@RequestParam int cap) {
 		Train n = new Train();
 		n.setCapacity(cap);
@@ -58,7 +57,7 @@ public class MainController {
 		return "Train added succcessful!";
 	}
 	
-	@GetMapping(path="/addRoute") // Map ONLY Get Requests
+	@GetMapping(path="/add_route") // Map ONLY Get Requests
 	public @ResponseBody String addNewRoute (@RequestParam String name, @RequestParam int dist, @RequestParam int timeArr, @RequestParam int timeDept) {
 		Route n = new Route();
 		n.setName(name);
@@ -69,10 +68,21 @@ public class MainController {
 		return "Route added succcessful!";
 	}
 	
-	@GetMapping(path="/all") //Get all stations
+	@GetMapping(path="/all_station") //Get all stations
 	public @ResponseBody Iterable<Station> getAllStations(){
 		return repo.findAll();
 	}
+	
+	@GetMapping(path="/all_train") //Get all stations
+	public @ResponseBody Iterable<Train> getAllTrains(){
+		return repo2.findAll();
+	}
+	
+	@GetMapping(path="/all_route") //Get all stations
+	public @ResponseBody Iterable<Route> getAllRoutes(){
+		return repo3.findAll();
+	}
+	
 
 }
 
