@@ -40,6 +40,8 @@ public class MainController {
 	
 	
 	// API Mapping 
+	
+	// 
 	@GetMapping(path="/addStation") // Map ONLY Get Requests
 	public @ResponseBody String addNewStation (@RequestParam String name) {
 		Station n = new Station();
@@ -56,7 +58,7 @@ public class MainController {
 		return "Train added succcessful!";
 	}
 	
-	@GetMapping(path="/addTrain") // Map ONLY Get Requests
+	@GetMapping(path="/addRoute") // Map ONLY Get Requests
 	public @ResponseBody String addNewRoute (@RequestParam String name, @RequestParam int dist, @RequestParam int timeArr, @RequestParam int timeDept) {
 		Route n = new Route();
 		n.setName(name);
@@ -64,14 +66,12 @@ public class MainController {
 		n.setTimeArrival(timeArr);
 		n.setTimeDept(timeDept);
 		repo3.save(n);
-		return "Train added succcessful!";
+		return "Route added succcessful!";
 	}
 	
 	@GetMapping(path="/all") //Get all stations
 	public @ResponseBody Iterable<Station> getAllStations(){
 		return repo.findAll();
-		//String hql = "FROM station";
-		//return (List<Station>)entityManager.createQuery(hql).getResultList();
 	}
 
 }
