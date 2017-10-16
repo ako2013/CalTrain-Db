@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 
@@ -69,18 +71,18 @@ public class MainController {
 	}
 	
 	@GetMapping(path="/all_station") //Get all stations
-	public @ResponseBody Iterable<Station> getAllStations(){
-		return repo.findAll();
+	public @ResponseBody List<Station> getAllStations(){
+		return repo.findAllStation();
 	}
 	
 	@GetMapping(path="/all_train") //Get all stations
-	public @ResponseBody Iterable<Train> getAllTrains(){
-		return repo2.findAll();
+	public @ResponseBody List<Train> getAllTrains(){
+		return repo2.findAllTrain();
 	}
 	
 	@GetMapping(path="/all_route") //Get all stations
-	public @ResponseBody Iterable<Route> getAllRoutes(){
-		return repo3.findAll();
+	public @ResponseBody List<Route> getAllRoutes(){
+		return repo3.findAllRoute();
 	}
 	
 
