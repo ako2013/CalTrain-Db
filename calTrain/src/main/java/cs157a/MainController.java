@@ -18,6 +18,9 @@ import cs157a.StationRepo;
 import cs157a.Train;
 import cs157a.TrainRepo;
 
+import cs157a.User;
+import cs157a.UserRepo;
+
 @Controller
 @RequestMapping(path="/api")
 public class MainController {
@@ -33,6 +36,9 @@ public class MainController {
 	
 	@Autowired
 	private RouteRepo repo3;
+	
+	@Autowired
+	private UserRepo repo4;
 	
 	@RequestMapping(path="/check")
 	public @ResponseBody String greet() {
@@ -70,6 +76,27 @@ public class MainController {
 		return "Route added succcessful!";
 	}
 	
+	@GetMapping(path="/add_user")
+	public @ResponseBody String addNewUser (@RequestParam String name, @RequestParam String password) {
+		User n = new User();
+		n.setName(name);
+		n.setPass(password);
+		repo4.save(n);
+		return "User created Successful";
+	}
+	
+	//This method gets username of password and check if exists in the database
+	//ex: http://localhost:8080/api/user_validation?userName=xxxx&userPass=yyyy
+	@GetMapping(path="/user_validation")
+	public @ResponseBody String checkUser(@RequestParam String userName, @RequestParam String userPass) {
+		try {
+			if(repo4.findUser(userName,userPass) != null) return "{'message': 'valid'}" ;
+			else return "{'message': 'invalid'}";
+		}catch(Exception e) {return e.toString();}
+	}
+	
+	
+	// GET ALL DATA PART
 	@GetMapping(path="/all_station") //Get all stations
 	public @ResponseBody List<Station> getAllStations(){
 		return repo.findAllStation();
@@ -83,6 +110,11 @@ public class MainController {
 	@GetMapping(path="/all_route") //Get all stations
 	public @ResponseBody List<Route> getAllRoutes(){
 		return repo3.findAllRoute();
+	}
+	
+	@GetMapping(path="/all_user")
+	public @ResponseBody List<User> getAllUsers(){
+		return repo4.findAllUsers();
 	}
 	
 
