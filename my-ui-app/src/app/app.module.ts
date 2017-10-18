@@ -6,11 +6,13 @@ import { HomeComponent } from './home/home.component';
 
 import { routes } from './router.service';
 import { RouterModule } from '@angular/router';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
