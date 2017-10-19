@@ -1,27 +1,27 @@
 <div class="jumbotron animated zoomIn">
-    <h2>User Login</h2>
+    <h2>Admin Login</h2>
     <form  [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
 
       <div class="form-group" [ngClass]="{'has-error':!form.controls['username'].valid && form.controls['username'].touched}">
-        <label>Username (admin):</label>
-        <input [(ngModel)] ="username" class="form-control" type="text" placeholder="user name" [formControl]="form.controls['username']" >
-        <div *ngIf="form.controls['username'].hasError('required') && form.controls['username'].touched" class="alert alert-danger">Vui lòng nhập tên</div>
-        <div *ngIf="form.controls['username'].hasError('minlength') && form.controls['username'].touched" class="alert alert-danger">Tên quá ngắn</div>
-        <div *ngIf="form.controls['username'].hasError('maxlength') && form.controls['username'].touched" class="alert alert-danger">Tên quá dài</div>
+        <label>Username :</label>
+        <input [(ngModel)] ="username" class="form-control" type="text" placeholder="username" [formControl]="form.controls['username']" >
+        <div *ngIf="form.controls['username'].hasError('required') && form.controls['username'].touched" class="alert alert-danger">Please enter a username</div>
+        <div *ngIf="form.controls['username'].hasError('minlength') && form.controls['username'].touched" class="alert alert-danger">Invalid username</div>
+        <div *ngIf="form.controls['username'].hasError('maxlength') && form.controls['username'].touched" class="alert alert-danger">Invalid username</div>
       </div>
 
       <div class="form-group" [ngClass]="{'has-error':!form.controls['password'].valid && form.controls['password'].touched}">
-        <label>Password (admin1):</label>
+        <label>Password :</label>
         <input [(ngModel)] ="password" class="form-control" type="password" placeholder="password" [formControl]="form.controls['password']" >
-        <div *ngIf="form.controls['password'].hasError('required') && form.controls['password'].touched" class="alert alert-danger">Vui lòng nhập tên</div>
-        <div *ngIf="form.controls['password'].hasError('minlength') && form.controls['password'].touched" class="alert alert-danger">Tên quá ngắn</div>
-        <div *ngIf="form.controls['password'].hasError('maxlength') && form.controls['password'].touched" class="alert alert-danger">Tên quá dài</div>
+        <div *ngIf="form.controls['password'].hasError('required') && form.controls['password'].touched" class="alert alert-danger">Please enter your password</div>
+        <div *ngIf="form.controls['password'].hasError('minlength') && form.controls['password'].touched" class="alert alert-danger">Invalid password</div>
+        <div *ngIf="form.controls['password'].hasError('maxlength') && form.controls['password'].touched" class="alert alert-danger">Invalid password</div>
       </div>
 
       <div class="form-group">
-        <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Sign in</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Log in</button>
       </div>
     </form>
 
-    <div><h4>Status: {{mess}}</h4></div>
+    <div><h4>{{mess}}</h4></div>
 </div>

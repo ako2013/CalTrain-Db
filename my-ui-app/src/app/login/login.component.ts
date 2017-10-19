@@ -40,7 +40,10 @@ export class LoginComponent implements OnInit {
        try {
         if(this.authService.userList[0].valid){
           this.mess = "Login successful";
-        }else this.mess = "Login failed";
+        } else {
+          this.mess = "Login failed";
+          this.form.reset();
+        }
        }catch(e){};
     },1000);
    }
