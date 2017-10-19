@@ -42,7 +42,7 @@ public class MainController {
 	
 	@RequestMapping(path="/check")
 	public @ResponseBody String greet() {
-		return "API service running!";
+		return "{\"message\":\"API service running!\"}";
 	}
 	
 	
@@ -90,8 +90,8 @@ public class MainController {
 	@GetMapping(path="/user_validation")
 	public @ResponseBody String checkUser(@RequestParam String userName, @RequestParam String userPass) {
 		try {
-			if(repo4.findUser(userName,userPass) != null) return "{'message': 'valid'}" ;
-			else return "{'message': 'invalid'}";
+			if(repo4.findUser(userName,userPass) != null) return "{\"message\": 1}" ;
+			else return "{\"message\": 0}";
 		}catch(Exception e) {return e.toString();}
 	}
 	
