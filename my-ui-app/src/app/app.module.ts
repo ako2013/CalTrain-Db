@@ -23,7 +23,7 @@ import { AuthenticationService } from './authentication.service';
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes, {
-      useHash: false
+      useHash: true
     }),
     FormsModule,
     ReactiveFormsModule,
