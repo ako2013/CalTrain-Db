@@ -1,23 +1,21 @@
 package cs157a;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Train {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer id;
+	private String id;
 	private int capacity;
 	
 	//GETTER Methods
-	public Integer getID() { return id;}
+	public String getID() { return id;}
 	public int getCapacity() { return capacity;}
 	
 	//SETTER Methods
+	public void setId(String id) { this.id = id;}
 	public void setCapacity(int num) { this.capacity = num;}
 
 }
