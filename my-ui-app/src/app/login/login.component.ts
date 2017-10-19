@@ -12,10 +12,10 @@ import { AuthenticationService } from '../authentication.service';
 })
 export class LoginComponent implements OnInit {
 
-  private form: FormGroup;
-  private username;
-  private password; 
-  private mess;
+  public form: FormGroup;
+  public username;
+  public password; 
+  public mess;
 
   authService: any;
 
@@ -30,14 +30,14 @@ export class LoginComponent implements OnInit {
 
    }
 
-   private onSubmit(user: any): void {
+   public onSubmit(user: any): void {
      //console.log("User data: ");
      user['userName'] =  this.username;
      user['userPass'] = this.password;
      //console.log(user);
      this.authService.validateUser(user);
      setTimeout(()=>{
-       try{
+       try {
         if(this.authService.userList[0].valid){
           this.mess = "Login successful";
         }else this.mess = "Login failed";

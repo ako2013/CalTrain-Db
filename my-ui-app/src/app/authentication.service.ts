@@ -22,7 +22,7 @@ export class AuthenticationService {
     console.log(userName);
     console.log(userPass);
     
-     var request: any = this.http.get('http://localhost:4200/api/user_validation?userName='+userName+'&userPass='+userPass);
+     var request: any = this.http.get('https://vast-mesa-82240.herokuapp.com/api/user_validation?userName='+userName+'&userPass='+userPass);
      request.subscribe((feedback) => {
         var response = JSON.parse(feedback._body);
         console.log(response.message);

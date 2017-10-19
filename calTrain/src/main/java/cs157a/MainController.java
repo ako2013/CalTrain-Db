@@ -3,6 +3,7 @@ package cs157a;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -48,7 +49,6 @@ public class MainController {
 	
 	// API Mapping 
 	
-	// 
 	@GetMapping(path="/add_station") // Map ONLY Get Requests
 	public @ResponseBody String addNewStation (@RequestParam String name) {
 		Station n = new Station();
@@ -87,6 +87,7 @@ public class MainController {
 	
 	//This method gets username of password and check if exists in the database
 	//ex: http://localhost:8080/api/user_validation?userName=xxxx&userPass=yyyy
+	@CrossOrigin
 	@GetMapping(path="/user_validation")
 	public @ResponseBody String checkUser(@RequestParam String userName, @RequestParam String userPass) {
 		try {
