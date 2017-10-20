@@ -26,9 +26,6 @@ import cs157a.UserRepo;
 @RequestMapping(path="/api")
 public class MainController {
 	
-	//@PersistenceContext	
-	//private EntityManagerFactory entityManagerFactory;
-	
 	@Autowired
 	private StationRepo repo;
 	
@@ -42,10 +39,9 @@ public class MainController {
 	private UserRepo repo4;
 	
 	@RequestMapping(path="/check")
-	public @ResponseBody String greet() {
+	public @ResponseBody String check() {
 		return "{\"message\":\"API service running!\"}";
 	}
-	
 	
 	// API Mapping 
 	
@@ -66,9 +62,9 @@ public class MainController {
 	}
 	
 	@GetMapping(path="/add_route") // Map ONLY Get Requests
-	public @ResponseBody String addNewRoute (@RequestParam String name, @RequestParam int dist, @RequestParam int timeArr, @RequestParam int timeDept) {
+	public @ResponseBody String addNewRoute (@RequestParam String id, @RequestParam int dist, @RequestParam int timeArr, @RequestParam int timeDept) {
 		Route n = new Route();
-		n.setName(name);
+		n.setId(id);
 		n.setDistance(dist);
 		n.setTimeArrival(timeArr);
 		n.setTimeDept(timeDept);

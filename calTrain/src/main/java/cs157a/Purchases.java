@@ -6,6 +6,7 @@ import javax.persistence.Id;
 @Entity
 public class Purchases {
 	
+	@Id 
 	private String userId;
 	private String ticketId;
 	private String date;
@@ -20,6 +21,5 @@ public class Purchases {
 	public void setTicketId (String newId) {this.ticketId = newId;}
 	public void setDate(String date) {this.date = date;}
 	
-	}
-
 }
+
