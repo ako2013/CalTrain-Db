@@ -23,6 +23,7 @@ import cs157a.User;
 import cs157a.UserRepo;
 
 @Controller
+@CrossOrigin
 @RequestMapping(path="/api")
 public class MainController {
 	
@@ -83,7 +84,6 @@ public class MainController {
 	
 	//This method gets username of password and check if exists in the database
 	//ex: http://localhost:8080/api/user_validation?userName=xxxx&userPass=yyyy
-	@CrossOrigin
 	@GetMapping(path="/user_validation")
 	public @ResponseBody String checkUser(@RequestParam String userName, @RequestParam String userPass) {
 		try {
