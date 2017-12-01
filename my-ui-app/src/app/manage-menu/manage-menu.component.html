@@ -1,0 +1,114 @@
+<app-nav-bar></app-nav-bar>
+<div class="container">
+  <div class="row">
+  <div class="col-2">
+    
+    <ul class="nav flex-column nav-pills">
+      <li class="nav-item">
+        <a class="nav-link" routerLink = "/home">
+          Status
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" routerLink = "/manage">
+          Manage
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " routerLink = "/ticket">
+          Tickets
+        </a>
+      </li>
+    </ul>
+
+  </div>
+
+  <!-- listing tab -->
+  <div class="col-5">
+    <div class ="jumbotron animated fadeIn" *ngIf="this.itemNo == 0">
+      <h3>Menu</h3>
+      <hr class="my-4">
+      <div >
+        <button type="button" class="btn btn-md btn-block" (click)="onClickedItem(1)">Edit Trains</button>
+        <button type="button" class="btn btn-md btn-block" (click)="onClickedItem(2)">Edit Routes</button>
+        <button type="button" class="btn btn-md btn-block" (click)="onClickedItem(3)">Edit Stations</button>
+        <button type="button" class="btn btn-md btn-block" (click)="onClickedItem(4)">Edit Tickets</button>
+        <button type="button" class="btn btn-md btn-block" (click)="onClickedItem(5)">Edit Users</button>
+        <br><br>
+      </div>
+    </div>
+
+    <!-- this part is for trains editing -->
+    <div class ="jumbotron animated fadeIn" *ngIf="this.itemNo == 1">
+      
+      <h3>Trains</h3>
+      <button class="btn btn-sm btn-secondary float-left" (click)="onClickedItem(0)">back</button>
+      <button class="btn btn-sm btn-primary float-right" (click)="onClickedItem(0)">Add</button><br>
+      <hr class="my-4">
+      <div *ngFor="let train of this.trainService.trainLists">
+        <button type="button" class="btn btn float-left">{{train.trainName}}</button>
+        <button type="button" class="btn btn-danger float-right" (click)="onClickedDel(train)" data-toggle="modal" data-target="#myModal">Delete</button>
+        <button type="button" class="btn btn-info float-right" (click)="onClicked(train)">Edit</button>
+        <br><br>
+      </div>
+    </div>
+  </div>
+
+  <!-- edit tab -->
+  <div class="col-5">
+    <div class = "jumbotron animated fadeIn" *ngIf="trainSelected != null">
+      <h2>Edit</h2>
+      <hr class="my-4">
+      <form *ngIf="mess == null"[formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+
+        <div class="form-group" [ngClass]="{'has-error':!form.controls['editName'].valid && form.controls['editName'].touched}">
+          <label>Name:</label>
+          <input [(ngModel)] ="editName" class="form-control" type="text" placeholder="train name" [formControl]="form.controls['editName']" >
+          <div *ngIf="form.controls['editName'].hasError('required') && form.controls['editName'].touched" class="alert alert-danger">Please enter the name</div>
+          <div *ngIf="form.controls['editName'].hasError('minlength') && form.controls['editName'].touched" class="alert alert-danger">Invalid name</div>
+          <div *ngIf="form.controls['editName'].hasError('maxlength') && form.controls['editName'].touched" class="alert alert-danger">Invalid name</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error':!form.controls['editCap'].valid && form.controls['editCap'].touched}">
+          <label>Capacity:</label>
+          <input [(ngModel)] ="editCap" class="form-control" data-type="number" placeholder="25" [formControl]="form.controls['editCap']"  >
+          <div *ngIf="form.controls['editCap'].hasError('required') && form.controls['editCap'].touched" class="alert alert-danger">Please enter a number</div>
+          <div *ngIf="form.controls['editCap'].hasError('pattern') && form.controls['editCap'].touched" class="alert alert-danger">Invalid number</div> 
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Ok</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">{{this.modalName}}</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        {{this.modalBody}}
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="confirmDeleteTrain()">Confirm</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -3,30 +3,60 @@
   <div class="row">
   <div class="col-2">
     
-    <ul *ngIf="isLoggedIn" class="nav flex-column nav-pills">
+    <ul class="nav flex-column nav-pills">
       <li class="nav-item">
-        <a class="nav-link active" href="#">Overview</a>
+        <a class="nav-link active" routerLink = "/home">
+          Status
+        </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" href="#">Manage</a>
+        <a class="nav-link " routerLink = "/manage">
+          Manage
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " routerLink = "/ticket">
+          Tickets
+        </a>
       </li>
     </ul>
 
   </div>
 
-  <div class="col-10">
-    
-    <div *ngIf="isLoggedIn" class="jumbotron animated fadeIn">
+  <!-- listing tab -->
+  <div class="col-5">
+    <div class ="jumbotron animated fadeIn">
+      <h3>Listing</h3>
+      <hr class="my-4">
+      <div class="list-group" *ngFor="let train of this.trainService.trainLists">
+        <button class="list-group-item" (click)="trainClicked(train)">{{train.trainName}}</button>
+        &nbsp;
+      </div>
+    </div>
+
+  </div>
+
+  <!-- description tab -->
+  <div class="col-5">
+    <div class = "jumbotron animated fadeIn" *ngIf="this.trainName != null">
+      <h3>Details</h3>
+      <p class = "lead"></p>
+      <hr class="my-4">
+      <h6>Status: {{this.trainStatus}}</h6>
+      <h6>Name: {{this.trainName}}</h6>
+      <h6>Capacity: {{this.trainCap}}</h6>
+    </div>
+  </div>
+
+
+  </div>
+</div>
+
+<!--div *ngIf="isLoggedIn" class="jumbotron animated fadeIn">
       <h1 class="display-3">Welcome to DB</h1>
       <p class="lead"></p>
       <hr class="my-4">
       <h4>User: {{username}}</h4>
     </div>
 
-    <app-login *ngIf="!isLoggedIn"></app-login>
-    
-  </div>
-
-
-  </div>
-</div>
+    <app-login *ngIf="!isLoggedIn"></app-login-->

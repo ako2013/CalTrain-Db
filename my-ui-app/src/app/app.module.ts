@@ -11,14 +11,20 @@ import { RouterModule } from '@angular/router';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { LoginComponent } from './login/login.component';
 
+//SERVICE
 import { AuthenticationService } from './authentication.service';
+import { TrainService } from './train.service';
+
+
+import { ManageMenuComponent } from './manage-menu/manage-menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     NavBarComponent,
-    LoginComponent
+    LoginComponent,
+    ManageMenuComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +36,8 @@ import { AuthenticationService } from './authentication.service';
     HttpModule,
   ],
   providers: [
-    AuthenticationService
+    AuthenticationService,
+    TrainService
   ],
   bootstrap: [AppComponent]
 })
