@@ -355,7 +355,7 @@ public class MainController {
 	}
 	
 	//ENDS_AT EDIT
-		@GetMapping(path="/starts_at")
+		@GetMapping(path="/ends_at")
 		public @ResponseBody String EndsAtEdit(
 				@RequestParam int code,
 				@RequestParam(value="route_id", defaultValue="0") String route_id,
