@@ -43,20 +43,22 @@
       
       <h3>Trains</h3>
       <button class="btn btn-sm btn-secondary float-left" (click)="onClickedItem(0)">back</button>
-      <button class="btn btn-sm btn-primary float-right" (click)="onClickedItem(0)">Add</button><br>
+      <button class="btn btn-sm btn-primary float-right" (click)="onClickedAdd()">Add</button><br>
       <hr class="my-4">
-      <div *ngFor="let train of this.trainService.trainLists">
-        <button type="button" class="btn btn float-left">{{train.trainName}}</button>
+      <ul class="list-group" *ngFor="let train of this.trainService.trainLists">
+        <li class="list-group-item">
+          <h6 class="float-left">ID:{{train.trainId}} Name: {{train.trainName}}</h6>
         <button type="button" class="btn btn-danger float-right" (click)="onClickedDel(train)" data-toggle="modal" data-target="#myModal">Delete</button>
         <button type="button" class="btn btn-info float-right" (click)="onClicked(train)">Edit</button>
-        <br><br>
-      </div>
+        </li>
+      </ul>
     </div>
   </div>
 
   <!-- edit tab -->
   <div class="col-5">
-    <div class = "jumbotron animated fadeIn" *ngIf="trainSelected != null">
+    <!-- edit form -->
+    <div class = "jumbotron animated fadeIn" *ngIf="isEdit">
       <h2>Edit</h2>
       <hr class="my-4">
       <form *ngIf="mess == null"[formGroup]="form" (ngSubmit)="onSubmit(form.value)">
@@ -81,9 +83,43 @@
         </div>
       </form>
     </div>
+
+    <!-- add form -->
+    <div class = "jumbotron animated fadeIn" *ngIf="isAdd">
+      <h2>Add</h2>
+      <hr class="my-4">
+      <form *ngIf="mess == null"[formGroup]="form2" (ngSubmit)="onSubmit2(form2.value)">
+
+        <div class="form-group" [ngClass]="{'has-error':!form2.controls['trainName'].valid && form2.controls['trainName'].touched}">
+          <label>Name:</label>
+          <input [(ngModel)] ="trainName" class="form-control" type="text" placeholder="train name" [formControl]="form2.controls['trainName']" >
+          <div *ngIf="form2.controls['trainName'].hasError('required') && form2.controls['trainName'].touched" class="alert alert-danger">Please enter the name</div>
+          <div *ngIf="form2.controls['trainName'].hasError('minlength') && form2.controls['trainName'].touched" class="alert alert-danger">Invalid name</div>
+          <div *ngIf="form2.controls['trainName'].hasError('maxlength') && form2.controls['trainName'].touched" class="alert alert-danger">Invalid name</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error':!form2.controls['trainCap'].valid && form2.controls['trainCap'].touched}">
+          <label>Capacity:</label>
+          <input [(ngModel)] ="trainCap" class="form-control" data-type="number" placeholder="25" [formControl]="form2.controls['trainCap']"  >
+          <div *ngIf="form2.controls['trainCap'].hasError('required') && form2.controls['trainCap'].touched" class="alert alert-danger">Please enter a number</div>
+          <div *ngIf="form2.controls['trainCap'].hasError('pattern') && form2.controls['trainCap'].touched" class="alert alert-danger">Invalid number</div> 
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error':!form2.controls['trainId'].valid && form2.controls['trainId'].touched}">
+          <label>Id:</label>
+          <input [(ngModel)] ="trainId" class="form-control" data-type="number" placeholder="25" [formControl]="form2.controls['trainId']"  >
+          <div *ngIf="form2.controls['trainId'].hasError('required') && form2.controls['trainId'].touched" class="alert alert-danger">Please enter a number</div>
+          <div *ngIf="form2.controls['trainId'].hasError('pattern') && form2.controls['trainId'].touched" class="alert alert-danger">Invalid number</div> 
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary" [disabled]="!form2.valid">Ok</button>
+        </div>
+      </form>
+    </div>
+
+
   </div>
-
-
   </div>
 </div>
 

@@ -12,7 +12,7 @@ export class ManageMenuComponent implements OnInit {
 
   public trainLists: Array<Train> = [];
 
-  //form setup
+  //form edit setup
   public form: FormGroup;
   public editName;
   public editCap;
@@ -21,6 +21,14 @@ export class ManageMenuComponent implements OnInit {
   public modalName: String;
   public modalBody: String;
 
+  //form add setup
+  public form2: FormGroup;
+  public trainName;
+  public trainCap;
+  public trainId;
+
+  public isEdit;
+  public isAdd;
 
   constructor(public fb: FormBuilder, public trainService: TrainService) {
     this.form = this.fb.group({
@@ -28,14 +36,25 @@ export class ManageMenuComponent implements OnInit {
       editCap: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*')])],
     });
 
+    this.form2 = this.fb.group({
+      trainName: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(50)])],
+      trainCap: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*')])],
+      trainId: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*')])],
+    });
+
     this.itemNo = 1;
+    this.isEdit = false;
+    this.isAdd = false;
    }
 
   ngOnInit() { 
   }
 
+  //edit data not finished
   public onClicked(data){
     this.trainSelected = data;
+    this.isEdit = true;
+    this.isAdd = false;
     this.form.get("editName").setValue(data.trainName);
     this.form.get("editCap").setValue(data.trainCap);
     console.log(data);
@@ -48,6 +67,7 @@ export class ManageMenuComponent implements OnInit {
   }
 
   public confirmDeleteTrain(){
+    this.trainService.deleteTrain(this.trainSelected);
     console.log("Deleted :"+ JSON.stringify(this.trainSelected));
     this.modalName = "Deleting...";
     this.modalBody = "Success!!";
@@ -58,8 +78,21 @@ export class ManageMenuComponent implements OnInit {
     this.itemNo = num;
   }
 
+  public onClickedAdd(){
+    this.isEdit = false;
+    this.isAdd = true;
+  }
+
+  //part of edit not finished
   public onSubmit(object: any){
     console.log(object);
+  }
+
+  //submit for add
+  public onSubmit2(object: any){
+    console.log(object);
+    this.trainService.addTrain(object);
+    location.reload();
   }
 
 }
