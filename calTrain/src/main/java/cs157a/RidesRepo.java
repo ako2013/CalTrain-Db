@@ -15,13 +15,13 @@ public interface RidesRepo extends CrudRepository <Rides, Long>{
 	
 	@Transactional
 	@Modifying
-	@Query(value = "DELETE FROM Rides WHERE id = :id")
-	void deleteRide(@Param("id") String id);
+	@Query(value = "DELETE FROM Rides WHERE userId = :userId")
+	void deleteRide(@Param("userId") String userId);
 	
 	@Transactional
 	@Modifying
 	@Query(value = "UPDATE Rides SET trainId = :trainId WHERE userId = :userId")
-	void updateRide(@Param("trainId") int trainId, @Param("userId") String userId);
+	void updateRide(@Param("trainId") String trainId, @Param("userId") String userId);
 	
 
 }

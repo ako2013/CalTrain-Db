@@ -11,7 +11,7 @@ public class Ticket {
 	private double price;
 	
 	//GETTER
-	public String Id() { return id; }
+	public String getId() { return id; }
 	public double getPrice() { return price; }
 	
 	//SETTER

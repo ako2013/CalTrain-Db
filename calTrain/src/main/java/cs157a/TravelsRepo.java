@@ -20,7 +20,7 @@ public interface TravelsRepo extends CrudRepository<Travels,Long>{
 	
 	@Transactional
 	@Modifying
-	@Query(value = "UPDATE Travels SET stationId = :stationId WHERE trainId = :trainId")
-	void updateTravels(@Param("stationId") String stationId, @Param("trainId") String trainId);
+	@Query(value = "UPDATE Travels SET routeId = :routeId WHERE trainId = :trainId")
+	void updateTravels(@Param("routeId") String routeId, @Param("trainId") String trainId);
 
 }

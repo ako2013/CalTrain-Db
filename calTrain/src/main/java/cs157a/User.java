@@ -17,6 +17,7 @@ public class User {
 	//GETTER
 	public String getUserName() { return userName; }
 	public String getUserPass() { return userPass; }
+	public Integer getId() {	return id;}
 	
 	
 	//SETTER

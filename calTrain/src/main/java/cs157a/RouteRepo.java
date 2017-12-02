@@ -22,5 +22,5 @@ import org.springframework.transaction.annotation.Transactional;
 		@Transactional
 		@Modifying
 		@Query(value = "UPDATE Route SET distance = :distance, timeArrival = :timeArrival, timeDept = :timeDept WHERE id = :id")
-		void updateRoute(@Param("distance") String distance, @Param("timeArrival") int timeArrival,@Param("timeDept") int timeDept, @Param("id") String id);
+		void updateRoute(@Param("distance") int distance, @Param("timeArrival") int timeArrival,@Param("timeDept") int timeDept, @Param("id") String id);
 }

@@ -183,7 +183,7 @@ public class MainController {
 	//2 = delete
 	//3 = update
 	
-	//code
+	// TRAIN EDIT
 	//1 = add (cap + name + id)
 	//2 = delete (id)
 	//3 = update name + cap (name + cap using id)
@@ -220,6 +220,298 @@ public class MainController {
 		} catch(Exception e) {return e.toString();}
 		return "{\"message\": 0}";
 	}
-
+	
+	//USER EDIT
+	@GetMapping(path="/user")
+	public @ResponseBody String userEdit(
+			@RequestParam int code,
+			@RequestParam(value = "id", defaultValue="0") String id,
+			@RequestParam(value = "userName", defaultValue="0") String userName,
+			@RequestParam(value = "userPass", defaultValue="0") String userPass
+			) 
+	{
+		try {
+			switch(code) {
+			case 1:
+				User u = new User();
+				u.setName(userName);
+				u.setPass(userPass);
+				repoUser.save(u);
+				return "{\"message\": 1}";
+			case 2:
+				repoUser.deleteUser(Integer.parseInt(id));
+				return "{\"message\": 1}";
+			case 3:
+				repoUser.updateUser(userPass, Integer.parseInt(id));
+				return "{\"message\": 1}";
+			}
+		} catch (Exception e) {return e.toString();}
+		 return "{\"message\": 0}";
+	}
+	
+	//TRAVELS EDIT
+	@GetMapping(path="/travel")
+	public @ResponseBody String travelEdit(
+			@RequestParam int code,
+			@RequestParam(value ="trainId", defaultValue="0") String trainId,
+			@RequestParam(value="routeId", defaultValue="0") String routeId
+			) 
+	{
+		try {
+			switch(code) {
+			case 1:
+				Travels t = new Travels();
+				t.setTrainId(trainId);
+				t.setRouteId(routeId);
+				repoTravel.save(t);
+				return "{\"message\": 1}";
+			case 2:
+				repoTravel.deleteTravels(trainId);
+				return "{\"message\": 1}";
+			case 3:
+				repoTravel.updateTravels(routeId, trainId);
+				return "{\"message\": 1}";
+			}
+		} catch (Exception e) {return e.toString();}
+		 return "{\"message\": 0}";
+	}
+	
+	//TICKER EDIT
+	@GetMapping(path="/ticket")
+	public @ResponseBody String ticketEdit(
+			@RequestParam int code,
+			@RequestParam(value="id", defaultValue="0") String id,
+			@RequestParam(value="price", defaultValue="0") String price
+			) 
+	{
+		try {
+			switch(code) {
+			case 1:
+				Ticket t = new Ticket();
+				t.setId(id);
+				t.setPrice(Double.parseDouble(price));
+				repoTicket.save(t);
+				return "{\"message\": 1}";
+			case 2:
+				repoTicket.deleteTicket(id);
+				return "{\"message\": 1}";
+			case 3:
+				repoTicket.updateTicket(Double.parseDouble(price), id);
+				return "{\"message\": 1}";
+			}
+		} catch (Exception e) {return e.toString();}
+		 return "{\"message\": 0}";
+	}
+	
+	//STATION EDIT
+	@GetMapping(path="/station")
+	public @ResponseBody String stationEdit(
+			@RequestParam int code,
+			@RequestParam(value="id", defaultValue="0") String id,
+			@RequestParam(value="name", defaultValue="0") String name
+			) 
+	{
+		try {
+			switch(code) {
+			case 1:
+				Station s = new Station();
+				s.setId(id);
+				s.setName(name);
+				repoStation.save(s);
+				return "{\"message\": 1}";
+			case 2:
+				repoStation.deleteStation(id);
+				return "{\"message\": 1}";
+			case 3:
+				repoStation.updateStation(name, id);
+				return "{\"message\": 1}";
+			}
+		} catch (Exception e) {return e.toString();}
+		 return "{\"message\": 0}";
+	}
+	
+	//STARTS_AT EDIT
+	@GetMapping(path="/starts_at")
+	public @ResponseBody String startsAtEdit(
+			@RequestParam int code,
+			@RequestParam(value="route_id", defaultValue="0") String route_id,
+			@RequestParam(value="station_id", defaultValue="0") String station_id
+			)
+	{
+		try {
+			switch(code) {
+			case 1:
+				starts_at s = new starts_at();
+				s.setRoute_id(route_id);
+				s.setStation_id(station_id);
+				repoStartsAt.save(s);
+				return "{\"message\": 1}";
+			case 2:
+				repoStartsAt.deleteStartsAt(route_id, station_id);
+				return "{\"message\": 1}";
+			}
+		} catch (Exception e) {return e.toString();}
+		 return "{\"message\": 0}";
+	}
+	
+	//ENDS_AT EDIT
+		@GetMapping(path="/starts_at")
+		public @ResponseBody String EndsAtEdit(
+				@RequestParam int code,
+				@RequestParam(value="route_id", defaultValue="0") String route_id,
+				@RequestParam(value="station_id", defaultValue="0") String station_id
+				)
+		{
+			try {
+				switch(code) {
+				case 1:
+					ends_at s = new ends_at();
+					s.setRoute_id(route_id);
+					s.setStation_id(station_id);
+					repoEndsAt.save(s);
+					return "{\"message\": 1}";
+				case 2:
+					repoEndsAt.deleteEndsAt(route_id, station_id);
+					return "{\"message\": 1}";
+				}
+			} catch (Exception e) {return e.toString();}
+			 return "{\"message\": 0}";
+		}
+	
+	//ROUTE EDIT
+	@GetMapping(path="/route")
+	public @ResponseBody String routeEdit(
+			@RequestParam int code,
+			@RequestParam(value="id", defaultValue="0") String id,
+			@RequestParam(value="dist", defaultValue="0") int dist,
+			@RequestParam(value="timeArr", defaultValue="0") int timeArr,
+			@RequestParam(value="timeDept", defaultValue="0") int timeDept
+			) 
+	{
+		try {
+			switch(code) {
+			case 1:
+				Route r = new Route();
+				r.setDistance(dist);
+				r.setId(id);
+				r.setTimeArrival(timeArr);
+				r.setTimeDept(timeDept);
+				repoRoute.save(r);
+				return "{\"message\": 1}";
+			case 2:
+				repoRoute.deleteRoute(id);
+				return "{\"message\": 1}";
+			case 3:
+				repoRoute.updateRoute(dist, timeArr, timeDept, id);
+				return "{\"message\": 1}";
+			}
+		} catch (Exception e) {return e.toString();}
+		 return "{\"message\": 0}";
+	}
+	
+	//RIDES EDIT
+	@GetMapping(path="/ride")
+	public @ResponseBody String rideEdit(
+			@RequestParam int code,
+			@RequestParam(value="userId", defaultValue="0") String userId,
+			@RequestParam(value="trainId", defaultValue="0") String trainId
+			) 
+	{
+		try {
+			switch(code) {
+			case 1:
+				Rides r = new Rides();
+				r.setTrainId(trainId);
+				r.setUserId(userId);
+				repoRide.save(r);
+				return "{\"message\": 1}";
+			case 2:
+				repoRide.deleteRide(userId);
+				return "{\"message\": 1}";
+			case 3:
+				repoRide.updateRide(trainId, userId);
+				return "{\"message\": 1}";
+			}
+		} catch (Exception e) {return e.toString();}
+		 return "{\"message\": 0}";
+	}
+	
+	//PURCHASES EDIT
+	@GetMapping(path="/purchase")
+	public @ResponseBody String purchaseEdit(
+			@RequestParam int code,
+			@RequestParam(value="userId", defaultValue="0") String userId,
+			@RequestParam(value="ticketId", defaultValue="0") String ticketId,
+			@RequestParam(value="date", defaultValue="0") String date
+			) 
+	{
+		try {
+			switch(code) {
+			case 1:
+				Purchases p = new Purchases();
+				p.setUserId(userId);
+				p.setTicketId(ticketId);
+				p.setDate(date);
+				repoPurchases.save(p);
+				return "{\"message\": 1}";
+			case 2:
+				repoPurchases.deletePurchase(ticketId);
+				return "{\"message\": 1}";
+			case 3:
+				repoPurchases.updatePurchase(userId, ticketId);
+				return "{\"message\": 1}";
+			}
+		} catch (Exception e) {return e.toString();}
+		 return "{\"message\": 0}";
+	}
+	
+	//PREV STATION OF EDIT
+	@GetMapping(path="/prev_station")
+	public @ResponseBody String prevStationEdit(
+			@RequestParam int code,
+			@RequestParam(value="station_id", defaultValue="0") String station_id,
+			@RequestParam(value="previous_station_id", defaultValue="0") String previous_station_id
+			) 
+	{
+		try {
+			switch(code) {
+			case 1:
+				previous_station_of s = new previous_station_of();
+				s.setStation_id(station_id);
+				s.setPrevious_station_id(previous_station_id);
+				repoPrevStation.save(s);
+				return "{\"message\": 1}";
+			case 2:
+				repoPrevStation.deleteStation(station_id, previous_station_id);
+				return "{\"message\": 1}";
+			}
+		} catch (Exception e) {return e.toString();}
+		 return "{\"message\": 0}";
+	}
+	
+	//NEXT STATION OF EDIT
+		@GetMapping(path="/next_station")
+		public @ResponseBody String nextStationEdit(
+				@RequestParam int code,
+				@RequestParam(value="station_id", defaultValue="0") String station_id,
+				@RequestParam(value="next_station_id", defaultValue="0") String next_station_id
+				) 
+		{
+			try {
+				switch(code) {
+				case 1:
+					next_station_of s = new next_station_of();
+					s.setStation_id(station_id);
+					s.setNext_station_id(next_station_id);
+					repoNextStation.save(s);
+					return "{\"message\": 1}";
+				case 2:
+					repoNextStation.deleteStation(station_id, next_station_id);
+					return "{\"message\": 1}";
+				}
+			} catch (Exception e) {return e.toString();}
+			 return "{\"message\": 0}";
+		}
+	
 }
 

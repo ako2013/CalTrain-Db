@@ -16,5 +16,5 @@ public interface next_station_ofRepo extends CrudRepository<next_station_of,Long
 	@Transactional
 	@Modifying
 	@Query(value = "DELETE FROM next_station_of WHERE station_id = :station_id AND next_station_id = :next_station_id")
-	void deleteTrain(@Param("station_id") String station_id, @Param("next_station_id") String next_station_id);
+	void deleteStation(@Param("station_id") String station_id, @Param("next_station_id") String next_station_id);
 }

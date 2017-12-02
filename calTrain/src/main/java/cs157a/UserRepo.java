@@ -19,13 +19,13 @@ public interface UserRepo extends CrudRepository<User, Long>{
 	@Transactional
 	@Modifying
 	@Query(value = "DELETE FROM User WHERE id = :id")
-	void deleteUser(@Param("id") String id);
+	void deleteUser(@Param("id") Integer id);
 	
 	
 	//change password
 	@Transactional
 	@Modifying
 	@Query(value = "UPDATE User SET userPass = :userPass WHERE id = :id")
-	void updateUser(@Param("userPass") String userPass, @Param("id") String id);
+	void updateUser(@Param("userPass") String userPass, @Param("id") Integer id);
 
 }
