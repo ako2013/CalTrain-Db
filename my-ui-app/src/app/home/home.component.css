@@ -4,13 +4,14 @@
     background-color: #6D7993;
     margin: 0px;
     padding-bottom: 0px;
-    position: absolute;
+    position: fixed;
 }
 
 @media screen{
     .container{
         max-width: 100%;
         max-height: 100%;
+        overflow: scroll;
     }
 }
 
@@ -18,6 +19,7 @@
     background-color: #D5D5D5;
     text-align: center;
     padding-top: 1em;
+    
 }
 
 .col-5 {

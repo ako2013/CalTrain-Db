@@ -47,9 +47,9 @@
       <hr class="my-4">
       <ul class="list-group" *ngFor="let train of this.trainService.trainLists">
         <li class="list-group-item">
-          <h6 class="float-left">ID:{{train.trainId}} Name: {{train.trainName}}</h6>
-        <button type="button" class="btn btn-danger float-right" (click)="onClickedDel(train)" data-toggle="modal" data-target="#myModal">Delete</button>
-        <button type="button" class="btn btn-info float-right" (click)="onClicked(train)">Edit</button>
+          <h6 class="float-left">ID:{{train.trainId}} <br> Name: {{train.trainName}}</h6>
+        <button type="button" class="btn btn-sm btn-danger float-right" (click)="onClickedDel(train)" data-toggle="modal" data-target="#myModal">Delete</button>
+        <button type="button" class="btn btn-sm btn-info float-right" (click)="onClickedEdit(train)">Edit</button>
         </li>
       </ul>
     </div>

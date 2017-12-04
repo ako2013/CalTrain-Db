@@ -182,6 +182,9 @@ public class MainController {
 	//1 = add
 	//2 = delete
 	//3 = update
+	private final int ADD = 1;
+	private final int DEL = 2;
+	private final int UPDATE = 3;
 	
 	// TRAIN EDIT
 	//1 = add (cap + name + id)
@@ -239,10 +242,10 @@ public class MainController {
 				repoUser.save(u);
 				return "{\"message\": 1}";
 			case 2:
-				repoUser.deleteUser(Integer.parseInt(id));
+				repoUser.deleteUser(id);
 				return "{\"message\": 1}";
 			case 3:
-				repoUser.updateUser(userPass, Integer.parseInt(id));
+				repoUser.updateUser(userPass,id);
 				return "{\"message\": 1}";
 			}
 		} catch (Exception e) {return e.toString();}
@@ -276,7 +279,7 @@ public class MainController {
 		 return "{\"message\": 0}";
 	}
 	
-	//TICKER EDIT
+	//TICKET EDIT
 	@GetMapping(path="/ticket")
 	public @ResponseBody String ticketEdit(
 			@RequestParam int code,

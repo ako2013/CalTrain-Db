@@ -9,15 +9,14 @@ import javax.persistence.Id;
 public class User {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer id;
+	private String id;
 	private String userName;
 	private String userPass;
 	
 	//GETTER
 	public String getUserName() { return userName; }
 	public String getUserPass() { return userPass; }
-	public Integer getId() {	return id;}
+	public String getId() {	return id;}
 	
 	
 	//SETTER

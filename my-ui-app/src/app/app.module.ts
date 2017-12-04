@@ -14,6 +14,18 @@ import { LoginComponent } from './login/login.component';
 //SERVICE
 import { AuthenticationService } from './authentication.service';
 import { TrainService } from './train.service';
+import { UserService } from './user.service';
+import { TravelsService } from './travels.service';
+import { TicketService } from './ticket.service';
+import { StationService } from './station.service';
+import { StartsAtService } from './starts-at.service';
+import { EndsAtService } from './ends-at.service';
+import { RouteService } from './route.service';
+import { PurchaseService } from './purchase.service';
+import { NextStationService } from './next-station.service';
+import { PrevStationService } from './prev-station.service';
+
+
 
 
 import { ManageMenuComponent } from './manage-menu/manage-menu.component';
@@ -37,7 +49,17 @@ import { ManageMenuComponent } from './manage-menu/manage-menu.component';
   ],
   providers: [
     AuthenticationService,
-    TrainService
+    TrainService,
+    UserService,
+    TravelsService,
+    TicketService,
+    StationService,
+    StartsAtService,
+    EndsAtService,
+    RouteService,
+    PurchaseService,
+    NextStationService,
+    PrevStationService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,6 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+
 import { TrainService } from '../train.service';
+import { UserService } from '../user.service';
+import { TravelsService } from '../travels.service';
+import { TicketService } from '../ticket.service';
+import { StationService } from '../station.service';
+import { StartsAtService } from '../starts-at.service';
+import { EndsAtService } from '../ends-at.service';
+import { RouteService } from '../route.service';
+import { PurchaseService } from '../purchase.service';
+import { NextStationService } from '../next-station.service';
+import { PrevStationService } from '../prev-station.service';
+
+
+
 
 
 @Component({
@@ -30,7 +44,19 @@ export class ManageMenuComponent implements OnInit {
   public isEdit;
   public isAdd;
 
-  constructor(public fb: FormBuilder, public trainService: TrainService) {
+  constructor(public fb: FormBuilder, 
+  public trainService: TrainService, 
+  public userService : UserService,
+  public travelsService : TravelsService,
+  public ticketService: TicketService,
+  public stationService: StationService,
+  public startAtService: StartsAtService,
+  public endAtService: EndsAtService,
+  public routeService: RouteService,
+  public PurchaseService: PurchaseService,
+  public nextStationService: NextStationService,
+  public prevStationService: PrevStationService
+  ) {
     this.form = this.fb.group({
       editName: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(50)])],
       editCap: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*')])],
@@ -50,8 +76,7 @@ export class ManageMenuComponent implements OnInit {
   ngOnInit() { 
   }
 
-  //edit data not finished
-  public onClicked(data){
+  public onClickedEdit(data: any){
     this.trainSelected = data;
     this.isEdit = true;
     this.isAdd = false;
@@ -76,6 +101,9 @@ export class ManageMenuComponent implements OnInit {
 
   public onClickedItem(num: number){
     this.itemNo = num;
+    this.isAdd = false;
+    this.isEdit = false;
+    this.trainSelected = null;
   }
 
   public onClickedAdd(){
@@ -83,9 +111,15 @@ export class ManageMenuComponent implements OnInit {
     this.isAdd = true;
   }
 
-  //part of edit not finished
   public onSubmit(object: any){
+    
+    object['trainId'] = this.trainSelected['trainId'];
+    object['trainName'] = object['editName'];
+    object['trainCap'] = object['editCap'];
     console.log(object);
+    this.trainService.editTrain(object);
+    location.reload();
+
   }
 
   //submit for add

@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface RidesRepo extends CrudRepository <Rides, Long>{
 	
-	@Query(value = "SELECT * FROM train", nativeQuery = true)
+	@Query(value = "SELECT * FROM rides", nativeQuery = true)
 	List<Rides> findAllRides();
 	
 	@Transactional

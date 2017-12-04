@@ -20,7 +20,8 @@ export class TrainService {
         var stat = response[item].status;
         this.trainLists.push(new Train(name,cap,id,stat));
       }
-    })
+    });
+    
    }
 
    public addTrain(trainObject: any): number{
@@ -50,7 +51,31 @@ export class TrainService {
         if(response.message == 1) return 1;
         return 0;
       });
+   }
 
+   public editTrain(trainObject: any){
+      let id = trainObject['trainId'];
+      let name = trainObject['trainName'];
+      let cap = trainObject['trainCap'];
+
+      var request: any = this.http.get('https://evening-reef-56543.herokuapp.com/api/train?code=3&cap='+cap+'&name='+name+'&id='+id);
+      request.subscribe((feedback) => {
+        var response = JSON.parse(feedback._body);
+        if(response.message == 1) return 1;
+        return 0;
+      });
+   }
+
+   public editTrainStatus(trainObject: any){
+      let id = trainObject['trainId'];
+      let stat = trainObject['trainStatus'];
+
+      var request: any = this.http.get('https://evening-reef-56543.herokuapp.com/api/train?code=4&id='+id+'&status='+status);
+      request.subscribe((feedback) => {
+        var response = JSON.parse(feedback._body);
+        if(response.message == 1) return 1;
+        return 0;
+      });
    }
 
 }
