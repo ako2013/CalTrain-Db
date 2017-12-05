@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Rx';
 @Injectable()
 export class NextStationService {
 
-  public nextStaionList: Array<Station> = [];
+  public nextStationList: Array<Station> = [];
 
   constructor(public http: Http) {
 
@@ -16,9 +16,9 @@ export class NextStationService {
       let response = JSON.parse(info._body);
       console.log(response);
       for(var item in response){
-        var id = response[item].stationId;
-        var next = response[item].next_staion_id;
-        this.nextStaionList.push(new Station(id,next));
+        var id = response[item].station_id;
+        var next = response[item].next_station_id;
+        this.nextStationList.push(new Station(id,next));
       }
     });
 
@@ -27,11 +27,11 @@ export class NextStationService {
 }
 
 class Station{
-  stationId: String;
+  id: String;
   next_station_id: String;
 
-  constructor(station,next){
-    this.stationId= station;
+  constructor(id,next){
+    this.id= id;
     this.next_station_id = next;
   }
 }

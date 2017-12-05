@@ -29,6 +29,8 @@ import { PrevStationService } from './prev-station.service';
 
 
 import { ManageMenuComponent } from './manage-menu/manage-menu.component';
+import { FrontPageComponent } from './front-page/front-page.component';
+import { IndexPageComponent } from './index-page/index-page.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { ManageMenuComponent } from './manage-menu/manage-menu.component';
     HomeComponent,
     NavBarComponent,
     LoginComponent,
-    ManageMenuComponent
+    ManageMenuComponent,
+    FrontPageComponent,
+    IndexPageComponent
   ],
   imports: [
     BrowserModule,

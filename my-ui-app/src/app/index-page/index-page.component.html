@@ -1,0 +1,108 @@
+<app-nav-bar></app-nav-bar>
+<div class="container-fluid text-center bg-1 animated fadeInDown">
+  <h3 class="margin animated bounceInLeft">I want to...</h3>
+  <div class = "float-none animated bounceInLeft">
+  <button type="button" class="{{this.buttonColor[0]}}" (click)="clickedBuyTicket()">Buy a ticket</button>
+  <button type="button" class="{{this.buttonColor[1]}}" (click)="clickedCheckTicket()">Check my ticket</button>
+  <button type="button" class="{{this.buttonColor[2]}}" (click)="clickedFindStation()">Find a station</button>
+  </div>
+</div>
+
+<!-- Station Container -->
+<div class="container-fluid bg-2 text-center animated bounceInRight" *ngIf="optionSelected == 3">
+  <ul class="list-group" *ngFor="let station of this.stationService.stationList">
+    <li class="list-group-item">
+      <h6 class="float-left"><button type="button" class="btn btn-secondary">{{station.name}}</button></h6>
+      <h6 class="float-right">Connected to: <br> {{connectedStation(station)}}</h6>
+    </li>
+  </ul>
+</div>
+
+<!-- Find Ticket Container -->
+<div class="container-fluid bg-2 text-center animated bounceInRight" *ngIf="optionSelected == 2">
+  <ul class="list-group">
+    <li class="list-group-item">
+      <h3 class="float-left">Find your ticket</h3>
+    </li>
+    <li class="list-group-item">
+      <form  *ngIf="!isConfirm" [formGroup]="form2" (ngSubmit)="onSubmit2(form2.value)">
+
+        <div class="form-group" [ngClass]="{'has-error':!form2.controls['ticketIdFind'].valid && form2.controls['ticketIdFind'].touched}">
+          <label>Enter 4 digit number (Ticket-YYYY):</label>
+          <input [(ngModel)] ="ticketIdFind" class="form-control" type="text" placeholder="0001" [formControl]="form2.controls['ticketIdFind']" >
+          <div *ngIf="form2.controls['ticketIdFind'].hasError('required') && form2.controls['ticketIdFind'].touched" class="alert alert-danger">Please enter a number</div>
+          <div *ngIf="form2.controls['ticketIdFind'].hasError('minlength') && form2.controls['ticketIdFind'].touched" class="alert alert-danger">Invalid ref</div>
+          <div *ngIf="form2.controls['ticketIdFind'].hasError('maxlength') && form2.controls['ticketIdFind'].touched" class="alert alert-danger">Invalid ref</div>
+          <div *ngIf="form2.controls['ticketIdFind'].hasError('pattern') && form2.controls['ticketIdFind'].touched" class="alert alert-danger">Invalid ref</div>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary" [disabled]="!form2.valid">Ok</button>
+        </div>
+      </form>
+    </li>
+    <li class ="list-group-item" *ngIf="this.ticketFound != 0 && this.ticketFound != null">
+      <h4>Ticket found! </h4>
+      <h5>Ref #: {{this.ticketFound.id}}</h5>
+      <h5>Price purchased: ${{this.ticketFound.price}}.00</h5>
+    </li>
+    <li class ="list-group-item" *ngIf="this.ticketFound == 0">
+      <h4>Ticket not found! </h4> <br><br><br>
+    </li>
+  </ul>
+  
+</div>
+
+<!-- Buy Ticket Container -->
+<div class="container-fluid bg-2 text-center animated bounceInRight" *ngIf="optionSelected == 1">
+   <p>**For now you can only buy one ticket at a time!</p>
+      <hr class="my-4">
+      <form  *ngIf="!isConfirm" [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+
+        <div class="form-group" [ngClass]="{'has-error':!form.controls['departStation'].valid && form.controls['departStation'].touched}">
+          <label>Departure:</label>
+          <select [(ngModel)] ="departStation" class="form-control" [formControl]="form.controls['departStation']">
+            <option *ngFor="let station of this.stationService.stationList">{{station.name}}</option>
+          </select>
+          <div *ngIf="form.controls['departStation'].hasError('required') && form.controls['departStation'].touched" class="alert alert-danger">Please select one</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error':!form.controls['arrStation'].valid && form.controls['arrStation'].touched}">
+          <label>Arrival:</label>
+          <select [(ngModel)] ="arrStation" class="form-control" [formControl]="form.controls['arrStation']">
+            <option *ngFor="let station of this.stationService.stationList">{{station.name}}</option>
+          </select>
+          <div *ngIf="form.controls['arrStation'].hasError('required') && form.controls['arrStation'].touched" class="alert alert-danger">Please select one</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error':!form.controls['travellerName'].valid && form.controls['travellerName'].touched}">
+          <label>First name:</label>
+          <input [(ngModel)] ="travellerName" class="form-control" type="text" placeholder="John" [formControl]="form.controls['travellerName']" >
+          <div *ngIf="form.controls['travellerName'].hasError('required') && form.controls['travellerName'].touched" class="alert alert-danger">Please enter the name</div>
+          <div *ngIf="form.controls['travellerName'].hasError('minlength') && form.controls['travellerName'].touched" class="alert alert-danger">Invalid name</div>
+          <div *ngIf="form.controls['travellerName'].hasError('maxlength') && form.controls['travellerName'].touched" class="alert alert-danger">Invalid name</div>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Ok</button>
+        </div>
+      </form>
+
+      <!-- confirming container -->
+      <div class= "jumbotron animated fadeIn" *ngIf="isConfirm">
+        <h3> Suitable ticket for you:</h3> <br>
+        <p>Departing from: <b>{{this.selectedStationStart}}</b></p>
+        <p>Arriving at: <b>{{this.selectedStationEnd}}</b></p>
+        <p>Distance: <b>{{this.dist}} miles </b></p>
+        <p>Departing time: <b>{{splitTime(this.timeDept)}}</b></p>
+        <p>Arriving time: <b>{{splitTime(this.timeArr)}}</b></p>
+        <p>Price: <b>${{this.price}}.00</b></p>
+        <p>Traveller name: <b>{{this.selectedName}} </b></p>
+        <button class = "btn btn-sm float-left" (click)="clickedBackConfirm()">Back </button>
+        <button class = "btn btn-sm btn-primary float-right" (click)="clickedConfirmPurchase()">Confirm </button>
+      </div>
+      <div class= "jumbotron" *ngIf="isSuccess">
+        <h3> Successful</h3> <br>
+        <p>Ticket ID: <b>{{this.purchasedTicketId}}</b></p>
+      </div>
+</div>

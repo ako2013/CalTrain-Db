@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   //fake data for testing
 
   constructor(public authService: AuthenticationService, public trainService: TrainService) {
-    this.isLoggedIn = false;
+    this.isLoggedIn = this.authService.validated;
     this.trainStatus = "Working";
    }
 
@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
     try{
       if(this.authService.userList[0].valid) 
       {
-        this.isLoggedIn = true;
+        this.authService.validated = true;
         this.username = this.authService.userList[0].username;
       }
     }catch(e){};
@@ -43,6 +43,11 @@ export class HomeComponent implements OnInit {
     this.trainName = train.trainName;
     this.trainCap = train.trainCap;
 
+  }
+
+  logOut(){
+    this.authService.validated = false;
+    this.authService.userList = null;
   }
 
 }

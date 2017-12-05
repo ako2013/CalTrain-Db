@@ -39,3 +39,14 @@
 .ul{
     text-align: left;
 }
+
+.container-fluid{
+    padding-top:5em;
+    padding-left: 10em;
+    padding-right: 10em;
+    color: lightslategrey;
+}
+
+.nav-link{
+    cursor: pointer;
+}

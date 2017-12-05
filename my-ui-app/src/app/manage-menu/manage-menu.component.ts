@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { TrainService } from '../train.service';
 import { UserService } from '../user.service';
@@ -12,6 +13,7 @@ import { RouteService } from '../route.service';
 import { PurchaseService } from '../purchase.service';
 import { NextStationService } from '../next-station.service';
 import { PrevStationService } from '../prev-station.service';
+import { AuthenticationService } from '../authentication.service';
 
 
 
@@ -55,17 +57,20 @@ export class ManageMenuComponent implements OnInit {
   public isEdit;
   public isAdd;
   public addForm;
+  public editForm;
   public deleteCode;
 
   constructor(public fb: FormBuilder, 
-                                      public trainService: TrainService, 
-                                      public userService : UserService,
-                                      public travelsService : TravelsService,
-                                      public ticketService: TicketService,
-                                      public stationService: StationService,
-                                      public routeService: RouteService,
-                                      public PurchaseService: PurchaseService,
-                                      ) 
+              public trainService: TrainService, 
+              public userService : UserService,
+              public travelsService : TravelsService,
+              public ticketService: TicketService,
+              public stationService: StationService,
+              public routeService: RouteService,
+              public PurchaseService: PurchaseService,
+              public authService: AuthenticationService,
+              public router: Router,
+              ) 
   {
     this.form = this.fb.group({
       editName: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(50)])],
@@ -85,21 +90,37 @@ export class ManageMenuComponent implements OnInit {
       dept: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*')])]
     });
 
-    this.itemNo = 2;
+    this.itemNo = 0;
     this.isEdit = false;
     this.isAdd = false;
     this.deleteCode = 0;
+
+    if(this.authService.validated == false) this.router.navigate(['./admin']);
    }
 
   ngOnInit() { 
   }
 
   public onClickedEdit(data: any, code: number){
-    this.trainSelected = data;
+    this.editForm = code;
     this.isEdit = true;
     this.isAdd = false;
-    this.form.get("editName").setValue(data.trainName);
-    this.form.get("editCap").setValue(data.trainCap);
+
+    switch(code){
+      case 1: 
+      this.trainSelected = data;
+      this.form.get("editName").setValue(data.trainName);
+      this.form.get("editCap").setValue(data.trainCap);
+      break;
+      case 2:
+      this.routeSelected = data;
+      this.form3.get("id").setValue(data.id.substring(2,data.id.length));
+      this.form3.get("distance").setValue(data.distance);
+      this.form3.get("arrival").setValue(data.arrival);
+      this.form3.get("dept").setValue(data.dept);
+      break;
+    }
+    
     console.log(data);
   }
 
@@ -132,6 +153,7 @@ export class ManageMenuComponent implements OnInit {
       this.deleteCode = 2;
       this.routeService.deleteRoute(this.routeSelected);
       console.log("Deleted :"+ JSON.stringify(this.routeSelected));
+      break;
     }
     this.modalName = "Deleting...";
     this.modalBody = "Success!!";
@@ -180,9 +202,25 @@ export class ManageMenuComponent implements OnInit {
     location.reload();
   }
 
+  //submit for edit routes
+  public onSubmit4(object: any){
+    let temp: String = 'R-' + object.id;
+    object['id'] = temp;
+    console.log(object);
+    this.routeService.updateRoute(object);
+    location.reload();
+  }
+
   public splitTime(time: any){
     if(time.length == 3) return time.toString().replace(/\B(?=(\w{1})+(?!\d))/g, ":");
     return time.toString().replace(/\B(?=(\w{2})+(?!\d))/g, ":")
+  }
+
+  public logOut(){
+    this.authService.validated = false;
+    this.authService.userList = null;
+    this.router.navigate(['./admin']);
+    
   }
 
 }

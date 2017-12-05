@@ -21,7 +21,22 @@ export class TicketService {
         this.ticketList.push(new Ticket(id,price));
       }
     });
+   }
 
+   public addTicket(id: any, price: any){
+
+    var request: any = this.http.get('https://evening-reef-56543.herokuapp.com/api/ticket?code=1&id='+id+'&price='+price);
+    request.subscribe((feedback) => {
+      var response = JSON.parse(feedback._body);
+      console.log(response.message);
+      if(response.message == 1) return 1;
+      return 0;
+    });
+    return 0;
+   }
+
+   public findTicket(id: any): Ticket{
+     return this.ticketList.filter(x => x.id == id)[0];    
    }
 }
 

@@ -1,17 +1,24 @@
 <app-nav-bar></app-nav-bar>
-<div class="container">
+<div class="container animated pulse" *ngIf="this.authService.validated">
   <div class="row">
   <div class="col-2">
     
     <ul class="nav flex-column nav-pills">
+      <li class="nav-item">Welcome user: <b>{{this.authService.userList[0].username}}</b></li>
+      <hr class="my-2">
       <li class="nav-item">
-        <a class="nav-link active" routerLink = "/home">
+        <a class="nav-link active" routerLink = "/admin">
           Status
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link " routerLink = "/manage">
           Manage
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " data-toggle="modal" data-target="#myModal">
+          Log out
         </a>
       </li>
     </ul>
@@ -47,11 +54,29 @@
   </div>
 </div>
 
-<!--div *ngIf="isLoggedIn" class="jumbotron animated fadeIn">
-      <h1 class="display-3">Welcome to DB</h1>
-      <p class="lead"></p>
-      <hr class="my-4">
-      <h4>User: {{username}}</h4>
-    </div>
+<div class="container-fluid">
+  <app-login *ngIf="!this.authService.validated"></app-login>
+</div>
 
-    <app-login *ngIf="!isLoggedIn"></app-login-->
+
+
+<!-- The Modal -->
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Logging out..</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="logOut()">Confirm</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+
+    </div>
+  </div>
+</div>

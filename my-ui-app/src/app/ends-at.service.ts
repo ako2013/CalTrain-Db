@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Rx';
 @Injectable()
 export class EndsAtService {
 
-  public startsAtList: Array<EndList> = [];
+  public endssAtList: Array<EndList> = [];
 
   constructor (public http: Http) {
 
@@ -17,7 +17,7 @@ export class EndsAtService {
         var route = response[item].route_id;
         var station = response[item].station_id;
 
-        this.startsAtList.push(new EndList(route,station));
+        this.endssAtList.push(new EndList(route,station));
       }
     });
 
