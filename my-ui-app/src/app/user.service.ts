@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Rx';
 @Injectable()
 export class UserService {
 
-  public userLists: Array<User> = [];
+  public userList: Array<User> = [];
 
   constructor(public http: Http) { 
 
@@ -17,7 +17,7 @@ export class UserService {
         var id = response[item].userId;
         var name = response[item].userName;
         var pass = response[item].userPass;
-        this.userLists.push(new User(id,name,pass));
+        this.userList.push(new User(id,name,pass));
       }
     });
 

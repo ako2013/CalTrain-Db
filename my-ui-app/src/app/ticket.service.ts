@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Rx';
 @Injectable()
 export class TicketService {
 
-  public ticketLists:Array<Ticket> = [];
+  public ticketList:Array<Ticket> = [];
 
   constructor(public http: Http) {
 
@@ -18,7 +18,7 @@ export class TicketService {
       for(var item in response){
         var id = response[item].id;
         var price = response[item].price;
-        this.ticketLists.push(new Ticket(id,price));
+        this.ticketList.push(new Ticket(id,price));
       }
     });
 

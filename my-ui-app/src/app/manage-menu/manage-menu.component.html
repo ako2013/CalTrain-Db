@@ -14,11 +14,6 @@
           Manage
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link " routerLink = "/ticket">
-          Tickets
-        </a>
-      </li>
     </ul>
 
   </div>
@@ -38,30 +33,96 @@
       </div>
     </div>
 
-    <!-- this part is for trains editing -->
+    <!-- this part is for trains editing + listing -->
     <div class ="jumbotron animated fadeIn" *ngIf="this.itemNo == 1">
       
       <h3>Trains</h3>
       <button class="btn btn-sm btn-secondary float-left" (click)="onClickedItem(0)">back</button>
-      <button class="btn btn-sm btn-primary float-right" (click)="onClickedAdd()">Add</button><br>
+      <button class="btn btn-sm btn-primary float-right" (click)="onClickedAdd(1)">Add</button><br>
       <hr class="my-4">
       <ul class="list-group" *ngFor="let train of this.trainService.trainLists">
         <li class="list-group-item">
           <h6 class="float-left">ID:{{train.trainId}} <br> Name: {{train.trainName}}</h6>
+        <button type="button" class="btn btn-sm btn-danger float-right" (click)="onClickedDel(train,1)" data-toggle="modal" data-target="#myModal">Delete</button>
+        <button type="button" class="btn btn-sm btn-info float-right" (click)="onClickedEdit(train,1)">Edit</button>
+        </li>
+      </ul>
+    </div>
+
+     <!-- this part is for routes editing + listing -->
+    <div class ="jumbotron animated fadeIn" *ngIf="this.itemNo == 2">
+      
+      <h3>Routes</h3>
+      <button class="btn btn-sm btn-secondary float-left" (click)="onClickedItem(0)">back</button>
+      <button class="btn btn-sm btn-primary float-right" (click)="onClickedAdd(2)">Add</button><br>
+      <hr class="my-4">
+      <ul class="list-group" *ngFor="let route of this.routeService.routeList">
+        <li class="list-group-item">
+          <h6 class="float-left">ID:{{route.id}} <br> Distance: {{route.distance}} <br> Time arrival: {{splitTime(route.arrival)}} <br> Time departure: {{splitTime(route.dept)}} </h6>
+        <button type="button" class="btn btn-sm btn-danger float-right" (click)="onClickedDel(route,2)" data-toggle="modal" data-target="#myModal">Delete</button>
+        <button type="button" class="btn btn-sm btn-info float-right" (click)="onClickedEdit(route,2)">Edit</button>
+        </li>
+      </ul>
+    </div>
+
+    <!-- this part is for stations editing + listing -->
+    <div class ="jumbotron animated fadeIn" *ngIf="this.itemNo == 3">
+      
+      <h3>Stations</h3>
+      <button class="btn btn-sm btn-secondary float-left" (click)="onClickedItem(0)">back</button>
+      <button class="btn btn-sm btn-primary float-right" (click)="onClickedAdd(3)">Add</button><br>
+      <hr class="my-4">
+      <ul class="list-group" *ngFor="let station of this.stationService.stationList">
+        <li class="list-group-item">
+          <h6 class="float-left">ID:{{station.id}} <br> Name: {{station.name}} </h6>
         <button type="button" class="btn btn-sm btn-danger float-right" (click)="onClickedDel(train)" data-toggle="modal" data-target="#myModal">Delete</button>
         <button type="button" class="btn btn-sm btn-info float-right" (click)="onClickedEdit(train)">Edit</button>
         </li>
       </ul>
     </div>
+
+    <!-- this part is for tickets editing + listing -->
+    <div class ="jumbotron animated fadeIn" *ngIf="this.itemNo == 4">
+      
+      <h3>Tickets</h3>
+      <button class="btn btn-sm btn-secondary float-left" (click)="onClickedItem(0)">back</button>
+      <button class="btn btn-sm btn-primary float-right" (click)="onClickedAdd(4)">Add</button><br>
+      <hr class="my-4">
+      <ul class="list-group" *ngFor="let ticket of this.ticketService.ticketList">
+        <li class="list-group-item">
+          <h6 class="float-left">ID:{{ticket.id}} <br> Price: ${{ticket.price}}.00 </h6>
+        <button type="button" class="btn btn-sm btn-danger float-right" (click)="onClickedDel(train)" data-toggle="modal" data-target="#myModal">Delete</button>
+        <button type="button" class="btn btn-sm btn-info float-right" (click)="onClickedEdit(train)">Edit</button>
+        </li>
+      </ul>
+    </div>
+
+    <!-- this part is for tickets editing + listing -->
+    <div class ="jumbotron animated fadeIn" *ngIf="this.itemNo == 5">
+      
+      <h3>Users</h3>
+      <button class="btn btn-sm btn-secondary float-left" (click)="onClickedItem(0)">back</button>
+      <button class="btn btn-sm btn-primary float-right" (click)="onClickedAdd(5)">Add</button><br>
+      <hr class="my-4">
+      <ul class="list-group" *ngFor="let user of this.userService.userList">
+        <li class="list-group-item">
+          <h6 class="float-left">ID:{{user.id}} <br> Username: {{user.userName}} </h6>
+        <button type="button" class="btn btn-sm btn-danger float-right" (click)="onClickedDel(train)" data-toggle="modal" data-target="#myModal">Delete</button>
+        <button type="button" class="btn btn-sm btn-info float-right" (click)="onClickedEdit(train)">Edit</button>
+        </li>
+      </ul>
+    </div>
+
   </div>
 
   <!-- edit tab -->
   <div class="col-5">
-    <!-- edit form -->
+
+    <!-- edit form  train-->
     <div class = "jumbotron animated fadeIn" *ngIf="isEdit">
       <h2>Edit</h2>
       <hr class="my-4">
-      <form *ngIf="mess == null"[formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+      <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
 
         <div class="form-group" [ngClass]="{'has-error':!form.controls['editName'].valid && form.controls['editName'].touched}">
           <label>Name:</label>
@@ -82,13 +143,14 @@
           <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Ok</button>
         </div>
       </form>
+
     </div>
 
     <!-- add form -->
     <div class = "jumbotron animated fadeIn" *ngIf="isAdd">
       <h2>Add</h2>
       <hr class="my-4">
-      <form *ngIf="mess == null"[formGroup]="form2" (ngSubmit)="onSubmit2(form2.value)">
+      <form *ngIf="addForm == 1" [formGroup]="form2" (ngSubmit)="onSubmit2(form2.value)">
 
         <div class="form-group" [ngClass]="{'has-error':!form2.controls['trainName'].valid && form2.controls['trainName'].touched}">
           <label>Name:</label>
@@ -116,11 +178,46 @@
           <button type="submit" class="btn btn-primary" [disabled]="!form2.valid">Ok</button>
         </div>
       </form>
-    </div>
 
+       <!-- add form routes-->
+      <form *ngIf="addForm == 2" [formGroup]="form3" (ngSubmit)="onSubmit3(form3.value)">
+
+        <div class="form-group" [ngClass]="{'has-error':!form3.controls['id'].valid && form3.controls['id'].touched}">
+          <label>Id:</label>
+          <input [(ngModel)] ="id" class="form-control" type="number" placeholder="100" [formControl]="form3.controls['id']" >
+          <div *ngIf="form3.controls['id'].hasError('required') && form3.controls['id'].touched" class="alert alert-danger">Please enter a number</div>
+          <div *ngIf="form3.controls['id'].hasError('pattern') && form3.controls['id'].touched" class="alert alert-danger">Invalid number</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error':!form3.controls['distance'].valid && form3.controls['distance'].touched}">
+          <label>Distance:</label>
+          <input [(ngModel)] ="distance" class="form-control" data-type="number" placeholder="25" [formControl]="form3.controls['distance']"  >
+          <div *ngIf="form3.controls['distance'].hasError('required') && form3.controls['distance'].touched" class="alert alert-danger">Please enter a number</div>
+          <div *ngIf="form3.controls['distance'].hasError('pattern') && form3.controls['distance'].touched" class="alert alert-danger">Invalid number</div> 
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error':!form3.controls['arrival'].valid && form3.controls['arrival'].touched}">
+          <label>Time arrival:</label>
+          <input [(ngModel)] ="arrival" class="form-control" data-type="number" placeholder="1900" [formControl]="form3.controls['arrival']"  >
+          <div *ngIf="form3.controls['arrival'].hasError('required') && form3.controls['arrival'].touched" class="alert alert-danger">Please enter a number</div>
+          <div *ngIf="form3.controls['arrival'].hasError('pattern') && form3.controls['arrival'].touched" class="alert alert-danger">Invalid number</div> 
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error':!form3.controls['dept'].valid && form3.controls['dept'].touched}">
+          <label>Time departure:</label>
+          <input [(ngModel)] ="dept" class="form-control" data-type="number" placeholder="0113" [formControl]="form3.controls['dept']"  >
+          <div *ngIf="form3.controls['dept'].hasError('required') && form3.controls['dept'].touched" class="alert alert-danger">Please enter a number</div>
+          <div *ngIf="form3.controls['dept'].hasError('pattern') && form3.controls['dept'].touched" class="alert alert-danger">Invalid number</div> 
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary" [disabled]="!form3.valid">Ok</button>
+        </div>
+      </form>
 
   </div>
   </div>
+</div>
 </div>
 
 <!-- The Modal -->
@@ -141,7 +238,7 @@
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="confirmDeleteTrain()">Confirm</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="confirmDelete()">Confirm</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
       </div>
 
