@@ -6,8 +6,8 @@ body {
   p {font-size: 16px;}
   .margin {margin-bottom: 45px;}
   .bg-1 { 
-      background-color: #6D7993; 
-      color: black;
+      background-color: #0099ff; 
+      color: white;
       height: 100%;
       width: 100%;
   }
@@ -44,3 +44,52 @@ body {
   h3, button {
       font-family: 'Roboto Slab', serif;
   }
+  h2 {
+      font-family: 'Roboto Slab', serif;
+  }
+
+  #loadingImg{
+      padding-top: 1em;
+      -webkit-animation-duration: 2s;
+      animation-duration: 2s;
+  }
+
+  .loader {
+    border: 1em solid #f3f3f3; /* Light grey */
+    border-top: 1em solid slategrey; /* Blue */
+    border-radius: 50%;
+    width: 5em;
+    height: 5em;
+    animation: spin 2s linear infinite;
+    margin: auto;
+}
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    /* The alert message box */
+    .alert {
+        padding: 0.5em;
+        background-color: dodgerblue; /* Red */
+        color: white;
+        margin-bottom: 0.5em;
+    }
+
+    /* The close button */
+    .closebtn {
+        margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    /* When moving the mouse over the close button */
+    .closebtn:hover {
+        color: black;
+    }

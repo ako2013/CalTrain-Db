@@ -25,6 +25,9 @@ import { PurchaseService } from './purchase.service';
 import { NextStationService } from './next-station.service';
 import { PrevStationService } from './prev-station.service';
 
+//LIBRARIES
+import { ParticlesModule } from 'angular-particle';
+
 
 
 
@@ -50,6 +53,7 @@ import { IndexPageComponent } from './index-page/index-page.component';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
+    ParticlesModule
   ],
   providers: [
     AuthenticationService,

@@ -1,7 +1,8 @@
 <app-nav-bar></app-nav-bar>
+
 <div class="container-fluid text-center bg-1 animated fadeInDown">
-  <h3 class="margin animated bounceInLeft">I want to...</h3>
-  <div class = "float-none animated bounceInLeft">
+  <h2 class="margin animated bounceInLeft">I want to...</h2>
+  <div class = "float-none animated bounceInUp">
   <button type="button" class="{{this.buttonColor[0]}}" (click)="clickedBuyTicket()">Buy a ticket</button>
   <button type="button" class="{{this.buttonColor[1]}}" (click)="clickedCheckTicket()">Check my ticket</button>
   <button type="button" class="{{this.buttonColor[2]}}" (click)="clickedFindStation()">Find a station</button>
@@ -9,13 +10,18 @@
 </div>
 
 <!-- Station Container -->
-<div class="container-fluid bg-2 text-center animated bounceInRight" *ngIf="optionSelected == 3">
+<div class="container-fluid bg-2 text-center animated bounceInRight" *ngIf="optionSelected == 3 && this.stationService.stationList[0] != null">
   <ul class="list-group" *ngFor="let station of this.stationService.stationList">
     <li class="list-group-item">
       <h6 class="float-left"><button type="button" class="btn btn-secondary">{{station.name}}</button></h6>
       <h6 class="float-right">Connected to: <br> {{connectedStation(station)}}</h6>
     </li>
   </ul>
+</div>
+
+<div class="container-fluid bg-2 text-center animated bounceInRight" *ngIf="(optionSelected == 3 || optionSelected ==1) && this.stationService.stationList[0] == null">
+  <div class="loader float-none"></div>
+  <h3 class = "animated fadeIn infinite" id ="loadingImg">Fetching data...</h3>
 </div>
 
 <!-- Find Ticket Container -->
@@ -55,7 +61,10 @@
 
 <!-- Buy Ticket Container -->
 <div class="container-fluid bg-2 text-center animated bounceInRight" *ngIf="optionSelected == 1">
-   <p>**For now you can only buy one ticket at a time!</p>
+  <div class="alert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+     For now you can only buy one ticket at a time!
+  </div>
       <hr class="my-4">
       <form  *ngIf="!isConfirm" [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
 

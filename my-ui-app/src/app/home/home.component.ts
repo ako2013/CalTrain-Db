@@ -16,6 +16,9 @@ export class HomeComponent implements OnInit {
   public trainCap: number;
   public trainStatus: String;
 
+  public myParams;
+  public myStyle;
+
   //fake data for testing
 
   constructor(public authService: AuthenticationService, public trainService: TrainService) {
@@ -24,8 +27,6 @@ export class HomeComponent implements OnInit {
    }
 
   ngOnInit(){
-
-    //console.log(this.trainLists);
   }
 
   ngDoCheck() {

@@ -3,7 +3,7 @@
   <div class="row">
   <div class="col-2">
     <ul class="nav flex-column nav-pills">
-      <li class="nav-item">Welcome user: <b>{{this.authService.userList[0].username}}</b></li>
+      <!--li class="nav-item">Welcome user: <b>{{this.authService.userList[0].username}}</b></li-->
       <hr class="my-2">
       <li class="nav-item">
         <a class="nav-link" routerLink = "/admin">
@@ -21,7 +21,6 @@
         </a>
       </li>
     </ul>
-
   </div>
 
   <!-- listing tab -->
@@ -150,7 +149,7 @@
         </div>
       </form>
 
-       <!-- add form routes-->
+       <!-- edit form routes-->
       <form *ngIf="editForm == 2" [formGroup]="form3" (ngSubmit)="onSubmit4(form3.value)">
 
         <div class="form-group" [ngClass]="{'has-error':!form3.controls['id'].valid && form3.controls['id'].touched}">
@@ -195,7 +194,7 @@
       <form *ngIf="addForm == 1" [formGroup]="form2" (ngSubmit)="onSubmit2(form2.value)">
 
         <div class="form-group" [ngClass]="{'has-error':!form2.controls['trainName'].valid && form2.controls['trainName'].touched}">
-          <label>Name:</label>
+          <label>Train Name:</label>
           <input [(ngModel)] ="trainName" class="form-control" type="text" placeholder="train name" [formControl]="form2.controls['trainName']" >
           <div *ngIf="form2.controls['trainName'].hasError('required') && form2.controls['trainName'].touched" class="alert alert-danger">Please enter the name</div>
           <div *ngIf="form2.controls['trainName'].hasError('minlength') && form2.controls['trainName'].touched" class="alert alert-danger">Invalid name</div>
@@ -210,7 +209,7 @@
         </div>
 
         <div class="form-group" [ngClass]="{'has-error':!form2.controls['trainId'].valid && form2.controls['trainId'].touched}">
-          <label>Id:</label>
+          <label>Train Id:</label>
           <input [(ngModel)] ="trainId" class="form-control" data-type="number" placeholder="25" [formControl]="form2.controls['trainId']"  >
           <div *ngIf="form2.controls['trainId'].hasError('required') && form2.controls['trainId'].touched" class="alert alert-danger">Please enter a number</div>
           <div *ngIf="form2.controls['trainId'].hasError('pattern') && form2.controls['trainId'].touched" class="alert alert-danger">Invalid number</div> 
@@ -225,7 +224,7 @@
       <form *ngIf="addForm == 2" [formGroup]="form3" (ngSubmit)="onSubmit3(form3.value)">
 
         <div class="form-group" [ngClass]="{'has-error':!form3.controls['id'].valid && form3.controls['id'].touched}">
-          <label>Id:</label>
+          <label>Route Id:</label>
           <input [(ngModel)] ="id" class="form-control" type="number" placeholder="100" [formControl]="form3.controls['id']" >
           <div *ngIf="form3.controls['id'].hasError('required') && form3.controls['id'].touched" class="alert alert-danger">Please enter a number</div>
           <div *ngIf="form3.controls['id'].hasError('pattern') && form3.controls['id'].touched" class="alert alert-danger">Invalid number</div>
@@ -257,6 +256,97 @@
         </div>
       </form>
 
+      <!-- add form stations -->
+      <form *ngIf="addForm == 3" [formGroup]="form4" (ngSubmit)="onSubmit4(form4.value)">
+
+        <div class="form-group" [ngClass]="{'has-error':!form4.controls['stationId'].valid && form4.controls['stationId'].touched}">
+          <label>Station ID:</label>
+          <input [(ngModel)] ="stationId" class="form-control" type="number" placeholder="100" [formControl]="form4.controls['stationId']" >
+          <div *ngIf="form4.controls['stationId'].hasError('required') && form4.controls['stationId'].touched" class="alert alert-danger">Please enter a number</div>
+          <div *ngIf="form4.controls['stationId'].hasError('pattern') && form4.controls['stationId'].touched" class="alert alert-danger">Invalid number</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error':!form4.controls['stationName'].valid && form4.controls['stationName'].touched}">
+          <label>Station Name:</label>
+          <input [(ngModel)] ="stationName" class="form-control" type="text" placeholder="station name" [formControl]="form4.controls['stationName']" >
+          <div *ngIf="form4.controls['stationName'].hasError('required') && form4.controls['stationName'].touched" class="alert alert-danger">Please enter the name</div>
+          <div *ngIf="form4.controls['stationName'].hasError('minlength') && form4.controls['stationName'].touched" class="alert alert-danger">Invalid name</div>
+          <div *ngIf="form4.controls['stationName'].hasError('maxlength') && form4.controls['stationName'].touched" class="alert alert-danger">Invalid name</div>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary" [disabled]="!form4.valid">Ok</button>
+        </div>
+      </form>
+
+      <!-- add form users -->
+      <form *ngIf="addForm == 5" [formGroup]="form5" (ngSubmit)="onSubmit6(form5.value)">
+
+        <div class="form-group" [ngClass]="{'has-error':!form5.controls['userId'].valid && form5.controls['userId'].touched}">
+          <label>user ID:</label>
+          <input [(ngModel)] ="userId" class="form-control" type="number" placeholder="100" [formControl]="form5.controls['userId']" >
+          <div *ngIf="form5.controls['userId'].hasError('required') && form5.controls['userId'].touched" class="alert alert-danger">Please enter a number</div>
+          <div *ngIf="form5.controls['userId'].hasError('pattern') && form5.controls['userId'].touched" class="alert alert-danger">Invalid number</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error':!form5.controls['userName'].valid && form5.controls['userName'].touched}">
+          <label>Username:</label>
+          <input [(ngModel)] ="userName" class="form-control" type="text" placeholder="admin" [formControl]="form5.controls['userName']" >
+          <div *ngIf="form5.controls['userName'].hasError('required') && form5.controls['userName'].touched" class="alert alert-danger">Please enter the name</div>
+          <div *ngIf="form5.controls['userName'].hasError('minlength') && form5.controls['userName'].touched" class="alert alert-danger">Invalid name</div>
+          <div *ngIf="form5.controls['userName'].hasError('maxlength') && form5.controls['userName'].touched" class="alert alert-danger">Invalid name</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error':!form5.controls['userPass'].valid && form5.controls['userPass'].touched}">
+          <label>Password:</label>
+          <input [(ngModel)] ="userPass" class="form-control" type="text" placeholder="admin1" [formControl]="form5.controls['userPass']" >
+          <div *ngIf="form5.controls['userPass'].hasError('required') && form5.controls['userPass'].touched" class="alert alert-danger">Please enter the name</div>
+          <div *ngIf="form5.controls['userPass'].hasError('minlength') && form5.controls['userPass'].touched" class="alert alert-danger">Invalid name</div>
+          <div *ngIf="form5.controls['userPass'].hasError('maxlength') && form5.controls['userPass'].touched" class="alert alert-danger">Invalid name</div>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary" [disabled]="!form5.valid">Ok</button>
+        </div>
+      </form>
+
+      <!-- add form tickets -->
+      <form *ngIf="addForm == 4" [formGroup]="form6" (ngSubmit)="onSubmit6(form6.value)">
+
+        <div class="form-group" [ngClass]="{'has-error':!form6.controls['ticketId'].valid && form6.controls['ticketId'].touched}">
+          <label>Ticket ID:</label>
+          <input [(ngModel)] ="ticketId" class="form-control" type="number" placeholder="100" [formControl]="form6.controls['ticketId']" >
+          <div *ngIf="form6.controls['ticketId'].hasError('required') && form6.controls['ticketId'].touched" class="alert alert-danger">Please enter a number</div>
+          <div *ngIf="form6.controls['ticketId'].hasError('pattern') && form6.controls['ticketId'].touched" class="alert alert-danger">Invalid number</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error':!form6.controls['ticketName'].valid && form6.controls['ticketName'].touched}">
+          <label>Ticket's Name:</label>
+          <input [(ngModel)] ="ticketName" class="form-control" type="text" placeholder="John" [formControl]="form6.controls['ticketName']" >
+          <div *ngIf="form6.controls['ticketName'].hasError('required') && form6.controls['ticketName'].touched" class="alert alert-danger">Please enter the name</div>
+          <div *ngIf="form6.controls['ticketName'].hasError('minlength') && form6.controls['ticketName'].touched" class="alert alert-danger">Invalid name</div>
+          <div *ngIf="form6.controls['ticketName'].hasError('maxlength') && form6.controls['ticketName'].touched" class="alert alert-danger">Invalid name</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error':!form6.controls['ticketPrice'].valid && form6.controls['ticketPrice'].touched}">
+          <label>Ticket Price:</label>
+          <input [(ngModel)] ="ticketPrice" class="form-control" type="number" placeholder="10" [formControl]="form6.controls['ticketPrice']" >
+          <div *ngIf="form6.controls['ticketPrice'].hasError('required') && form6.controls['ticketPrice'].touched" class="alert alert-danger">Please enter a number</div>
+          <div *ngIf="form6.controls['ticketPrice'].hasError('pattern') && form6.controls['ticketPrice'].touched" class="alert alert-danger">Invalid number</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error':!form6.controls['ticketCode'].valid && form6.controls['ticketCode'].touched}">
+          <label>Ticket Code:</label>
+          <input [(ngModel)] ="ticketCode" class="form-control" type="number" placeholder="1001" [formControl]="form6.controls['ticketCode']" >
+          <div *ngIf="form6.controls['ticketCode'].hasError('required') && form6.controls['ticketCode'].touched" class="alert alert-danger">Please enter a number</div>
+          <div *ngIf="form6.controls['ticketCode'].hasError('pattern') && form6.controls['ticketCode'].touched" class="alert alert-danger">Invalid number</div>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary" [disabled]="!form6.valid">Ok</button>
+        </div>
+      </form>
+      
   </div>
   </div>
 </div>

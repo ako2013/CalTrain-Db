@@ -74,7 +74,7 @@ export class IndexPageComponent implements OnInit {
 
   ngOnInit() {
     //console.log(this.buttonColor);
-   
+    console.log(this.stationService.stationList);   
   }
 
   connectedStation(stationObj :any){

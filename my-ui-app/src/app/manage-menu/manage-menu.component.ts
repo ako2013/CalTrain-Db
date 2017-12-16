@@ -47,12 +47,30 @@ export class ManageMenuComponent implements OnInit {
   public trainCap;
   public trainId;
 
-  //form add route setup
+  //form add/edit route setup
   public form3: FormGroup;
   public id;
   public distance;
   public arrival;
   public dept;
+
+  //form add/edit station setup
+  public form4: FormGroup;
+  public stationId;
+  public stationName;
+
+  //form add/edit user setup
+  public form5: FormGroup;
+  public userId;
+  public userName;
+  public userPass;
+
+  //form add/edit ticket setup
+  public form6: FormGroup;
+  public ticketId;
+  public ticketPrice;
+  public ticketName;
+  public ticketCode;
 
   public isEdit;
   public isAdd;
@@ -90,12 +108,30 @@ export class ManageMenuComponent implements OnInit {
       dept: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*')])]
     });
 
+    this.form4 = this.fb.group({
+      stationId: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*')])],
+      stationName: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(50)])]
+    });
+
+    this.form5 = this.fb.group({
+      userId: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*')])],
+      userName: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(50)])],
+      userPass: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(50)])],
+    });
+
+    this.form6 = this.fb.group({
+      ticketId: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*')])],
+      ticketName: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(50)])],
+      ticketPrice: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*')])],
+      ticketCode: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*')])],
+    });
+
     this.itemNo = 0;
     this.isEdit = false;
     this.isAdd = false;
     this.deleteCode = 0;
 
-    if(this.authService.validated == false) this.router.navigate(['./admin']);
+    //if(this.authService.validated == false) this.router.navigate(['./admin']);
    }
 
   ngOnInit() { 
@@ -174,7 +210,7 @@ export class ManageMenuComponent implements OnInit {
     console.log(this.addForm);
   }
 
-  //submit for edit train
+  //submit for edit trains
   public onSubmit(object: any){
     
     object['trainId'] = this.trainSelected['trainId'];
@@ -186,7 +222,7 @@ export class ManageMenuComponent implements OnInit {
 
   }
 
-  //submit for add train
+  //submit for add trains
   public onSubmit2(object: any){
     console.log(object);
     this.trainService.addTrain(object);
@@ -209,6 +245,36 @@ export class ManageMenuComponent implements OnInit {
     console.log(object);
     this.routeService.updateRoute(object);
     location.reload();
+  }
+
+  //submit for add stations
+  public onSubmit5(object: any){
+
+  }
+
+  //submit for edit stations
+  public onSubmit6(object: any){
+
+  }
+
+  //submit for add users
+  public onSubmit7(object: any){
+
+  }
+
+  //submit for edit users
+  public onSubmit8(object: any){
+
+  }
+
+  //submit for add tickets
+  public onSubmit9(object: any){
+
+  }
+
+  //submit for edit tickets
+  public onSubmit10(object: any){
+
   }
 
   public splitTime(time: any){
