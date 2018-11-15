@@ -1,5 +1,10 @@
 <app-nav-bar></app-nav-bar>
 
+<!-- Error popup-->
+<div class="alert alert-danger" role="alert" *ngIf="this.stationService.errorCode.length !== 0">
+  Error encountered! Please refresh the page.
+</div>
+
 <div class="container-fluid text-center bg-1 animated fadeInDown">
   <h2 class="margin animated bounceInLeft">I want to...</h2>
   <div class = "float-none animated bounceInUp">
@@ -11,7 +16,9 @@
 
 <!-- Loading div-->
 <div class="container-fluid bg-2 text-center animated bounceInRight" *ngIf="
-(this.stationService.stationList[0] == null && (this.optionSelected == 1 || this.optionSelected == 2 ||this.optionSelected == 3))">
+this.stationService.stationList[0] == null 
+&& (this.optionSelected == 1 || this.optionSelected == 2 ||this.optionSelected == 3) 
+&& this.stationService.errorCode.length == 0">
   <div class="loader float-none"></div>
   <h4 class = "animated fadeIn infinite" id ="loadingImg">Fetching data...</h4>
 </div>
@@ -63,7 +70,7 @@
 
 <!-- Buy Ticket Container -->
 <div class="container-fluid bg-2 text-center animated bounceInRight" *ngIf="optionSelected == 1 && this.stationService.stationList[0] != null">
-  <div class="alert">
+  <div class="alert alert-primary" role="alert">
     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
      For now you can only buy one ticket at a time!
   </div>

@@ -13,28 +13,28 @@ export class StationService {
 
   constructor(public http: Http) {
     setTimeout( () => this.getStationData(), 5000);
-   }
+  }
 
-   private async getStationData() {
-    await this.http.get('https://evening-reef-56543.herokuapp.com/api/all_station').toPromise()
-    .then( data => {
-      const response = data.json();
-      for (const item in response) {
-        if (item) {
-          const id: Number = response[item].id;
-          const name: String = response[item].name;
-          this.stationList.push(new Station(id, name));
+  private async getStationData() {
+    try {
+      await this.http.get('https://evening-reef-56543.herokuapp.com/api/all_stations').toPromise()
+      .then( data => {
+        const response = data.json();
+        for (const item in response) {
+          if (item) {
+            const id: Number = response[item].id;
+            const name: String = response[item].name;
+            this.stationList.push(new Station(id, name));
+          }
         }
+      })
+    }catch (err) {
+      this.errorCode = err.status;
+        console.log(err._body);
       }
-    })
-    .catch( error => {
-      this.errorCode = 'Error';
-      console.log('error');
-      console.log(error);
-    });
-   };
+  }
 
-   public async addStation(stationObj: any){
+  public async addStation(stationObj: any) {
 
     const name = stationObj['name'];
     const id = stationObj['id'];
@@ -48,9 +48,9 @@ export class StationService {
       return 0;
     });
     return 0;
-   }
+  }
 
-   public deleteStaion(stationObj: any){
+  public deleteStaion(stationObj: any){
      let id = stationObj['id'];
 
     var request: any = this.http.get('https://evening-reef-56543.herokuapp.com/api/station?code=2&id='+id);
@@ -61,9 +61,9 @@ export class StationService {
       return 0;
     });
     return 0;
-   }
+  }
 
-   public updateStation(stationObj: any){
+  public updateStation(stationObj: any){
 
     let name = stationObj['name'];
     let id = stationObj['id'];
@@ -76,7 +76,7 @@ export class StationService {
       return 0;
     });
     return 0;
-   }
+  }
 
 }
 
