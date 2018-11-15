@@ -33,10 +33,10 @@ This project emphasizing on SQL queries and database manipulation.
   - [IntellJ](https://www.jetbrains.com/idea/)
   - [Google Chrome](https://www.google.com/chrome/)
   
- - **Front-end**:
+- **Front-end**:
   - [Angular](https://angular.io/)
   - [Boostrap](https://getbootstrap.com/)
   
- - **Back-end**:
+- **Back-end**:
   - [Spring Boot](https://spring.io/guides/gs/serving-web-content/)
   - [Maven](https://maven.apache.org/)
