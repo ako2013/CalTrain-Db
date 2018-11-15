@@ -23,6 +23,9 @@ This project emphasizing on SQL queries and database manipulation.
 > The frontend website calls the RESTFUL API from the server and fetch/update data through the UI. 
 > Due to complexity of the course, simple security measures are implemented such as SQL injections by restricting user's input.
 
+## Final Report
+> Click <a href ="https://docs.google.com/document/d/1ufIhSs3JgL2FtX0WqMd6LFmZn1_eflY5-U3JN4bJKog/edit?usp=sharing" target="_blank">here</a> for more implementations and documentations about the project.
+
 ## Stacks
 
 - **Software**:
