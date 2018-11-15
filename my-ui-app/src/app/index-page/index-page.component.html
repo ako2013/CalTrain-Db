@@ -9,6 +9,13 @@
   </div>
 </div>
 
+<!-- Loading div-->
+<div class="container-fluid bg-2 text-center animated bounceInRight" *ngIf="
+(this.stationService.stationList[0] == null && (this.optionSelected == 1 || this.optionSelected == 2 ||this.optionSelected == 3))">
+  <div class="loader float-none"></div>
+  <h4 class = "animated fadeIn infinite" id ="loadingImg">Fetching data...</h4>
+</div>
+
 <!-- Station Container -->
 <div class="container-fluid bg-2 text-center animated bounceInRight" *ngIf="optionSelected == 3 && this.stationService.stationList[0] != null">
   <ul class="list-group" *ngFor="let station of this.stationService.stationList">
@@ -19,13 +26,8 @@
   </ul>
 </div>
 
-<div class="container-fluid bg-2 text-center animated bounceInRight" *ngIf="(optionSelected == 3 || optionSelected ==1) && this.stationService.stationList[0] == null">
-  <div class="loader float-none"></div>
-  <h3 class = "animated fadeIn infinite" id ="loadingImg">Fetching data...</h3>
-</div>
-
 <!-- Find Ticket Container -->
-<div class="container-fluid bg-2 text-center animated bounceInRight" *ngIf="optionSelected == 2">
+<div class="container-fluid bg-2 text-center animated bounceInRight" *ngIf="optionSelected == 2 && this.stationService.stationList[0] != null">
   <ul class="list-group">
     <li class="list-group-item">
       <h3 class="float-left">Find your ticket</h3>
@@ -60,7 +62,7 @@
 </div>
 
 <!-- Buy Ticket Container -->
-<div class="container-fluid bg-2 text-center animated bounceInRight" *ngIf="optionSelected == 1">
+<div class="container-fluid bg-2 text-center animated bounceInRight" *ngIf="optionSelected == 1 && this.stationService.stationList[0] != null">
   <div class="alert">
     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
      For now you can only buy one ticket at a time!

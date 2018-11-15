@@ -31,7 +31,6 @@ export class IndexPageComponent implements OnInit {
   public form2: FormGroup;
   public ticketIdFind;
 
-
   public selectedStationStart;
   public selectedStationEnd;
   public selectedName;
@@ -74,7 +73,8 @@ export class IndexPageComponent implements OnInit {
 
   ngOnInit() {
     //console.log(this.buttonColor);
-    console.log(this.stationService.stationList);   
+    const data = async () => await this.stationService.stationList;
+    console.log(data);
   }
 
   connectedStation(stationObj :any){
@@ -90,13 +90,13 @@ export class IndexPageComponent implements OnInit {
     
   }
 
-  clickedBuyTicket(){
+  clickedBuyTicket() {
     this.optionSelected = 1;
     this.buttonColor[0] = "btn btn-dark btn-lg";
     this.buttonColor[1] = "btn btn-light btn-lg", this.buttonColor[2] = "btn btn-light btn-lg";
-    console.log(this.stationService.stationList.filter(x => x.name == "Station A")[0].id);
+    //console.log(this.stationService.stationList.filter(x => x.name == "Station A")[0].id);
     //console.log(this.stationService.stationList.filter(x => x.name == "Station B")[0].id);
-    console.log(this.startsAtService.startsAtList);
+    //console.log(this.startsAtService.startsAtList);
     //console.log(this.endsAtService.endssAtList);
     //console.log(this.stationService.stationList);
   }
@@ -120,17 +120,17 @@ export class IndexPageComponent implements OnInit {
   }
 
   clickedConfirmPurchase(){
-    let latestId = this.ticketService.ticketList[this.ticketService.ticketList.length-1].id;
+    const latestId = this.ticketService.ticketList[this.ticketService.ticketList.length-1].id;
     let temp = parseInt(latestId.substr(7,latestId.length-1));
     temp = temp + 1;
-    this.purchasedTicketId = "Ticket-00" + temp.toString();
+    this.purchasedTicketId = 'Ticket-00' + temp.toString();
     //console.log(temp2);
     this.ticketService.addTicket(this.purchasedTicketId,this.price);
     this.isSuccess = true;
     this.isConfirm = false;
   }
 
-  public onSubmit(object: any){
+  public onSubmit(object: any) {
     console.log(object);
 
     //let start = this.stationService.stationList.filter(x => x.name == object.departStation)[0].id;
@@ -151,14 +151,13 @@ export class IndexPageComponent implements OnInit {
     this.timeArr = obj[0].arrival;
     this.price = Math.floor((Math.random()*10) +1);
     console.log(temp);
-    
   }
 
   public onSubmit2(object: any){
     //console.log(object.ticketIdFind);
-    let id = "Ticket-" + object.ticketIdFind;
-    let result = this.ticketService.findTicket(id);
-    if(result != undefined) this.ticketFound = result;
+    const id = "Ticket-" + object.ticketIdFind;
+    const result = this.ticketService.findTicket(id);
+    if (result !== undefined) this.ticketFound = result;
     else this.ticketFound = 0;
   }
 
@@ -166,9 +165,5 @@ export class IndexPageComponent implements OnInit {
     if(time.length == 3) return time.toString().replace(/\B(?=(\w{1})+(?!\d))/g, ":");
     return time.toString().replace(/\B(?=(\w{2})+(?!\d))/g, ":")
   }
-
-}
-
-class tempoTicket{
 
 }
