@@ -8,21 +8,27 @@ export class EndsAtService {
   public endssAtList: Array<EndList> = [];
 
   constructor (public http: Http) {
-
-    var data: any = this.http.get('https://evening-reef-56543.herokuapp.com/api/all_ends_at');
-    data.subscribe(info =>{
-      let response = JSON.parse(info._body);
-      console.log(response);
-      for(var item in response){
-        var route = response[item].route_id;
-        var station = response[item].station_id;
-
-        this.endssAtList.push(new EndList(route,station));
-      }
-    });
-
+    this.getEndsAt();
    }
 
+  private async getEndsAt() {
+    try {
+      const data = await this.http.get('https://evening-reef-56543.herokuapp.com/api/all_ends_at').toPromise()
+    .then(info => {
+      const response = info.json();
+      //console.log(response);
+      for (let item in response) {
+        if (item) {
+          const route = response[item].route_id;
+          const station = response[item].station_id;
+          this.endssAtList.push(new EndList(route,station));
+        }
+      }
+    });
+    }catch (err) {
+      console.log('Error: ' + err);
+    }
+  }
 }
 
 class EndList{

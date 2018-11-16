@@ -44,7 +44,7 @@ export class IndexPageComponent implements OnInit {
 
   public tempoTicket: any;
 
-  constructor(public stationService: StationService, 
+  constructor(public stationService: StationService,
               public routeService: RouteService,
               public nextStationService: NextStationService,
               public prevStationService: PrevStationService,
@@ -52,7 +52,7 @@ export class IndexPageComponent implements OnInit {
               public startsAtService: StartsAtService,
               public endsAtService: EndsAtService,
               public ticketService: TicketService,
-              ) 
+              )
   {
 
     this.optionSelected = 0;
@@ -73,8 +73,6 @@ export class IndexPageComponent implements OnInit {
 
   ngOnInit() {
     //console.log(this.buttonColor);
-    const data = async () => await this.stationService.stationList;
-    console.log(data);
   }
 
   connectedStation(stationObj :any){

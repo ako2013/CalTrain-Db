@@ -17,7 +17,7 @@ export class StationService {
 
   private async getStationData() {
     try {
-      await this.http.get('https://evening-reef-56543.herokuapp.com/api/all_stations').toPromise()
+      await this.http.get('https://evening-reef-56543.herokuapp.com/api/all_station').toPromise()
       .then( data => {
         const response = data.json();
         for (const item in response) {
@@ -38,32 +38,39 @@ export class StationService {
 
     const name = stationObj['name'];
     const id = stationObj['id'];
-
-    const request =
+    try {
+      const request =
       await this.http.get('https://evening-reef-56543.herokuapp.com/api/station?code=1&id=' + id + '&name=' + name).toPromise()
-    .then((feedback) => {
-      const response = feedback.json();
-      console.log(response.message);
-      if (response.message == 1) return 1;
-      return 0;
+      .then((feedback) => {
+        const response = feedback.json();
+        //console.log(response.message);
+        if (response.message == 1) return 1;
+        return 0;
     });
-    return 0;
+    }catch (err) {
+      console.log('Error');
+      return 0;
+    }
   }
 
-  public deleteStaion(stationObj: any){
-     let id = stationObj['id'];
-
-    var request: any = this.http.get('https://evening-reef-56543.herokuapp.com/api/station?code=2&id='+id);
-    request.subscribe((feedback) => {
-      var response = JSON.parse(feedback._body);
-      console.log(response.message);
-      if(response.message == 1) return 1;
+  public async deleteStaion(stationObj: any){
+    const id = stationObj['id'];
+    try {
+      const request =
+      await this.http.get('https://evening-reef-56543.herokuapp.com/api/station?code=2&id='+id).toPromise()
+      .then((feedback) => {
+        const response = feedback.json();
+        //console.log(response.message);
+        if(response.message == 1) return 1;
+        return 0;
+      });
+    }catch (err) {
+      console.log('error: ' + err);
       return 0;
-    });
-    return 0;
+    }
   }
 
-  public updateStation(stationObj: any){
+  public async updateStation(stationObj: any){
 
     let name = stationObj['name'];
     let id = stationObj['id'];
