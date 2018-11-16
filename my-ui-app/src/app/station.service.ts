@@ -12,12 +12,13 @@ export class StationService {
   public errorCode: String = '';
 
   constructor(public http: Http) {
-    setTimeout( () => this.getStationData(), 5000);
+    this.getStationData();
   }
 
   private async getStationData() {
     try {
-      await this.http.get('https://evening-reef-56543.herokuapp.com/api/all_station').toPromise()
+      await this.http.get('https://evening-reef-56543.herokuapp.com/api/all_station')
+      .toPromise()
       .then( data => {
         const response = data.json();
         for (const item in response) {
@@ -30,7 +31,8 @@ export class StationService {
       })
     }catch (err) {
       this.errorCode = err.status;
-        console.log(err._body);
+
+        console.log(new Error(err.status));
       }
   }
 
@@ -40,7 +42,8 @@ export class StationService {
     const id = stationObj['id'];
     try {
       const request =
-      await this.http.get('https://evening-reef-56543.herokuapp.com/api/station?code=1&id=' + id + '&name=' + name).toPromise()
+      await this.http.get('https://evening-reef-56543.herokuapp.com/api/station?code=1&id=' + id + '&name=' + name)
+      .toPromise()
       .then((feedback) => {
         const response = feedback.json();
         //console.log(response.message);
@@ -57,7 +60,8 @@ export class StationService {
     const id = stationObj['id'];
     try {
       const request =
-      await this.http.get('https://evening-reef-56543.herokuapp.com/api/station?code=2&id='+id).toPromise()
+      await this.http.get('https://evening-reef-56543.herokuapp.com/api/station?code=2&id='+id)
+      .toPromise()
       .then((feedback) => {
         const response = feedback.json();
         //console.log(response.message);
@@ -72,17 +76,22 @@ export class StationService {
 
   public async updateStation(stationObj: any){
 
-    let name = stationObj['name'];
-    let id = stationObj['id'];
-
-    var request: any = this.http.get('https://evening-reef-56543.herokuapp.com/api/station?code=3&id='+id+'&name='+name);
-    request.subscribe((feedback) => {
-      var response = JSON.parse(feedback._body);
-      console.log(response.message);
-      if(response.message == 1) return 1;
-      return 0;
-    });
-    return 0;
+    const name = stationObj['name'];
+    const id = stationObj['id'];
+    try {
+      const request = 
+      await this.http.get('https://evening-reef-56543.herokuapp.com/api/station?code=3&id='+id+'&name='+name)
+      .toPromise()
+      .then((feedback) => {
+        const response = feedback.json();
+        //console.log(response.message);
+        if(response.message == 1) return 1;
+        return 0;
+      });
+    } catch (err) {
+      console.log('Error: ' + err);
+    }
+    
   }
 
 }
