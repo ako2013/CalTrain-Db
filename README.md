@@ -73,3 +73,7 @@ This project emphasizing on SQL queries and database manipulation.
 ### Logout
 ![Alt text](screenshot/admin_logout.png?raw=true "Logout")
 
+## License
+
+CalTrain-Db is licensed under the MIT license. (http://opensource.org/licenses/MIT)
+
