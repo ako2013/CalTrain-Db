@@ -46,7 +46,7 @@ This project emphasizing on SQL queries and database manipulation.
   
 - **Front-end**:
   - [Angular](https://angular.io/)
-  - [Boostrap](https://getbootstrap.com/)
+  - [Bootstrap](https://getbootstrap.com/)
   
 - **Back-end**:
   - [Spring Boot](https://spring.io/guides/gs/serving-web-content/)
